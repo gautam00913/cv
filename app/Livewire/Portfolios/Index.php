@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Portfolios;
 
+use App\Models\Profile;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
@@ -24,7 +25,9 @@ class Index extends Component implements HasForms
     public function form(Form $form) : Form 
     {
         return $form->schema([
-            Repeater::make('portfolios')->schema([
+            Repeater::make('portfolios')
+            ->relationship()
+            ->schema([
                 TextInput::make('title')
                     ->label("Titre")
                     ->required(),
@@ -32,12 +35,17 @@ class Index extends Component implements HasForms
                         ->required()
                         ->maxLength(500),
                 TextInput::make('link')
+                        ->label('Lien')
                         ->url(),
                 FileUpload::make('picture')
+                        ->label("Capture d'écran")
                         ->image()
                         ->directory('images')
             ])
-        ]);
+            ->collapsible()
+        ])
+        ->statePath('data')
+        ->model(Profile::class);
     }
     public function render()
     {

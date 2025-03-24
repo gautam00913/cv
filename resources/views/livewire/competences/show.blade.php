@@ -13,13 +13,13 @@
                     @if ($sub_group->competenceSubTitle)
                         <x-card>
                             <h3 class="text-lg font-bold underline mb-3">{{ $sub_group->competenceSubTitle->name }}</h3>
-                            <p>
+                            <div>
                                 <ul class="space-y-3">
                                     @foreach ($competences as $competence)
                                         <li><x-tag>{{ $competence->tag }}</x-tag></li>
                                     @endforeach
                                 </ul>
-                            </p>
+                            </div>
                         </x-card>
                     @else
                         <x-card>
