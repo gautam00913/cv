@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+body{
+    font-family: Verdana, "Times New Roman", sans-serif;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  .bo{
+    border: 1px solid red;
+  }

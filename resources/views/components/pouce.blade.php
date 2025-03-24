@@ -1,0 +1,1 @@
+<p class="pouce animate-pulse rounded-full bg-primaryBase h-4 w-4 my-auto me-1 inline-block"></p>
