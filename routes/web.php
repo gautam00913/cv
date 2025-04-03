@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VisitController;
 use App\Livewire\Competences\Index;
 use App\Livewire\Competences\Subtitle;
 use App\Livewire\Competences\Title;
@@ -32,3 +33,4 @@ Route::middleware('auth')->group(function(){
     Route::get('/portfolios', PortfoliosIndex::class)->name('portfolios');
     Route::get('/setting', Setting::class)->name('setting');
 });
+Route::post('visits', VisitController::class)->name('visits.store');
