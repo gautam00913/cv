@@ -7,7 +7,7 @@ import 'https://kit.fontawesome.com/7fd20e3bd7.js';
                 ip_address: result.IP,
                 country_code: result.countryCode,
                 uag: result.uag,
-                date: date.toISOString()
+                date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
             };
 
             fetch('/visits', {

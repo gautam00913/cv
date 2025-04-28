@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class Index extends Component implements HasForms
@@ -22,31 +23,43 @@ class Index extends Component implements HasForms
         $this->form->fill(['portfolios' => auth()->user()->profile->portfolios->toArray()]);
     }
 
-    public function form(Form $form) : Form 
+    public function form(Form $form): Form
     {
         return $form->schema([
             Repeater::make('portfolios')
-            ->relationship()
-            ->schema([
-                TextInput::make('title')
-                    ->label("Titre")
-                    ->required(),
-                Textarea::make('description')
+                ->relationship()
+                ->schema([
+                    TextInput::make('title')
+                        ->label("Titre")
+                        ->required(),
+                    Textarea::make('description')
                         ->required()
                         ->maxLength(500),
-                TextInput::make('link')
+                    TextInput::make('link')
                         ->label('Lien')
                         ->url(),
-                FileUpload::make('picture')
+                    FileUpload::make('picture')
                         ->label("Capture d'écran")
                         ->image()
                         ->directory('images')
-            ])
-            ->collapsible()
+                ])
+                ->collapsible()
         ])
-        ->statePath('data')
-        ->model(Profile::class);
+            ->statePath('data')
+            ->model(Profile::class);
     }
+
+    public function submit()
+    {
+        $this->validate();
+        $updated = auth()->user()->profile->portfolios()->update($this->form->getState());
+        if ($updated)
+            Notification::make()
+                ->title("Modification effectuée avec succès")
+                ->success()
+                ->send();
+    }
+
     public function render()
     {
         return view('livewire.portfolios.index');

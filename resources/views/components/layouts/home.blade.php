@@ -9,6 +9,7 @@
         <meta name="author" content="Gautier Seth DJOSSOU">
         <meta name="description" content="Gautier DJOSSOU est un dévéloppeur web qui à suivi sa formation à l'IFRI de l'Université d'Abomey-Calavi">
         <meta name="image" property="og:image" content="{{ asset('images/image_gautier.jpg') }}">
+        <link rel="icon" type="images/png" href="{{ asset('images/image_gautier.jpg') }}" />
         <title>{{ $title ?? 'Gautier DJOSSOU' }} | Curriculum vitea</title>
         <style>
             [x-cloak] {
