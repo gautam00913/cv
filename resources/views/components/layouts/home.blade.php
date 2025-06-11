@@ -10,6 +10,7 @@
         <meta name="description" content="Gautier DJOSSOU est un dévéloppeur web qui à suivi sa formation à l'IFRI de l'Université d'Abomey-Calavi">
         <meta name="image" property="og:image" content="{{ asset('images/image_gautier.jpg') }}">
         <link rel="icon" type="images/png" href="{{ asset('images/image_gautier.jpg') }}" />
+        <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
         <title>{{ $title ?? 'Gautier DJOSSOU' }} | Curriculum vitea</title>
         <style>
             [x-cloak] {
@@ -35,5 +36,22 @@
                 <p class="text-center py-3">&copy; 2022 &middot; gautier seth djossou, swoftware engineer - <em>All right reserved</em></p>
         </footer>
         @vite('resources/js/app.js')
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                AOS.init({ duration: 800 });
+            });
+
+            document.addEventListener('livewire:navigated', () => {
+                AOS.refreshHard();
+            });
+
+            window.Livewire?.hook('commit', ({ component }) => {
+                if (component.el.querySelector('[data-aos]')) {
+                    // On attend un tout petit peu que le DOM soit prêt
+                    setTimeout(() => AOS.refreshHard(), 100);
+                }
+            });
+        </script>
     </body>
 </html>

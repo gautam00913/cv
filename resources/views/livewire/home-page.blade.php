@@ -1,28 +1,30 @@
 <div>
-    <div class="relative rounded-b-2xl h-[300px] shadow-xl" style="background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url({{ Storage::url($user->profile->cover_picture) }});">
-        <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
-            <div class="text-end space-x-3 mr-5">
-                <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> Appeler</x-button>
-                <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-envelope"></i> Message</x-button>
-                <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-download"></i> CV</x-button>
+    <section data-aos="flip-left" data-aos-duration="3000" data-aos-easing="ease-out-cubic" data-aos-once="true">
+        <div class="relative rounded-b-2xl h-[300px] shadow-xl" style="background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url({{ Storage::url($user->profile->cover_picture) }});">
+            <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
+                <div class="text-end space-x-3 mr-5">
+                    <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> Appeler</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-envelope"></i> Message</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-download"></i> CV</x-button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="flex flex-col md:flex-row justify-center items-center md:justify-normal space-x-8 md:ml-20 my-5">
-        <div class="-mt-20 z-20">
-            @if ($user->profile->picture)
-                <img src="{{ Storage::url($user->profile->picture) }}" class="rounded-full w-40 h-40 shadow-lg md:shadow-sm" />
-            @else
-                <p class="rounded-full w-40 h-40 shadow-lg md:shadow-sm flex items-center justify-center bg-secondaryLight">
-                    <i class="fa-solid fa-user text-6xl"></i>
-                </p>
-            @endif
+        <div class="flex flex-col md:flex-row justify-center items-center md:justify-normal space-x-8 md:ml-20 my-5">
+            <div class="-mt-20 z-20">
+                @if ($user->profile->picture)
+                    <img src="{{ Storage::url($user->profile->picture) }}" class="rounded-full w-40 h-40 shadow-lg md:shadow-sm" />
+                @else
+                    <p class="rounded-full w-40 h-40 shadow-lg md:shadow-sm flex items-center justify-center bg-secondaryLight">
+                        <i class="fa-solid fa-user text-6xl"></i>
+                    </p>
+                @endif
+            </div>
+            <div class="text-center md:text-start">
+                <h1 class="text-lg md:text-2xl font-bold mb-2">Hello, moi c'est {{ $user->name }}</h1>
+                <p class="italic font-semibold text-sm text-secondaryLight"><?= $user->profile->biography ?></p>
+            </div>
         </div>
-        <div class="text-center md:text-start">
-            <h1 class="text-lg md:text-2xl font-bold mb-2">Hello, moi c'est {{ $user->name }}</h1>
-            <p class="italic font-semibold text-sm text-secondaryLight"><?= $user->profile->biography ?></p>
-        </div>
-    </div>
+    </section>
 
     <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-0">
         <div>

@@ -16,10 +16,13 @@ use App\Livewire\Setting;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomePage::class);
-Route::controller(AuthController::class)->group(function () {
+Route::middleware('guest')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authenticate')->name('authenticate');
-    Route::delete('/logout', 'logout')->name('logout');
+    Route::get('/password-forget', 'password')->name('password.forget');
+    Route::post('/password-send-link', 'sendResetLink')->name('password.sendLink');
+    Route::get('/reset-password/{token}', 'reset')->name('password.reset');
+    Route::put('/password-update', 'updatePassword')->name('password.update');
 });
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
@@ -32,5 +35,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/experiences', ExperiencesIndex::class)->name('experiences');
     Route::get('/portfolios', PortfoliosIndex::class)->name('portfolios');
     Route::get('/setting', Setting::class)->name('setting');
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 Route::post('visits', VisitController::class)->name('visits.store');

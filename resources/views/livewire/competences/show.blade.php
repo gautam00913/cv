@@ -11,18 +11,20 @@
                         $sub_group = $competences->first();
                     @endphp
                     @if ($sub_group->competenceSubTitle)
-                        <x-card>
+                        <x-card data-aos="{{ $loop->index %2 == 0 ? 'fade-right' : 'fade-left' }}" data-aos-offset="300" data-aos-easing="ease-in-sine">
                             <h3 class="text-lg font-bold underline mb-3">{{ $sub_group->competenceSubTitle->name }}</h3>
                             <div>
                                 <ul class="space-y-3">
                                     @foreach ($competences as $competence)
-                                        <li><x-tag>{{ $competence->tag }}</x-tag></li>
+                                        <li>
+                                            <x-tag>{{ $competence->tag }}</x-tag>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
                         </x-card>
                     @else
-                        <x-card>
+                        <x-card data-aos="zoom-in-down">
                             <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5 lg:gap-8">
                                 @foreach ($competences as $competence)
                                     <x-tag>{{ $competence->tag }}</x-tag>
