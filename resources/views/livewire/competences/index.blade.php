@@ -1,6 +1,9 @@
-<div class="lg:space-x-4 flex flex-col lg:flex-row items-start">
+<div class="lg:space-x-4 flex flex-col lg:flex-row lg:items-start">
     <div class="bg-white lg:w-3/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
-        <h1 class="font-semibold mb-4 text-xl">Vos compétences</h1>
+        <h1 class="font-semibold mb-4 text-xl flex justify-between items-center">
+            <span>Vos compétences</span>
+            <a href="#formulaire" class="lg:hidden">+</a>
+        </h1>
         <div>
             <fieldset class="border border-gray-200 rounded-lg w-full p-4 bg-white shadow-sm dark:bg-gray-800 dark:border-gray-700">
                 <legend class="bg-secondaryLight px-3 py-1 shadow-md md:text-lg">{{ $group->competenceTitle->name }}</legend>
@@ -78,7 +81,7 @@
     </div>
     <div class="bg-white lg:w-2/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
         <h2 class="font-semibold mb-4 text-xl">Formulaire</h2>
-        <form wire:submit="submit">
+        <form wire:submit="submit" id="formulaire">
             {{ $this->form }}
             <div class="mt-5">
                 <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>

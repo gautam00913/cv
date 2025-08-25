@@ -17,10 +17,12 @@ class Index extends Component implements HasForms
 {
     use InteractsWithForms;
     public ?array $data = [];
+    public Profile $profile;
 
     public function mount()
     {
-        $this->form->fill(['portfolios' => auth()->user()->profile->portfolios->toArray()]);
+        $this->profile = auth()->user()->profile;
+        $this->form->fill(['portfolios' => $this->profile->portfolios->toArray()]);
     }
 
     public function form(Form $form): Form
@@ -35,24 +37,26 @@ class Index extends Component implements HasForms
                     Textarea::make('description')
                         ->required()
                         ->maxLength(500),
-                    TextInput::make('link')
-                        ->label('Lien')
-                        ->url(),
                     FileUpload::make('picture')
                         ->label("Capture d'écran")
                         ->image()
-                        ->directory('images')
+                        ->required()
+                        ->directory('images'),
+                    TextInput::make('link')
+                        ->label('Lien')
+                        ->url()
                 ])
                 ->collapsible()
+                ->addActionLabel("Ajouter un autre élément")
+                ->label(""),
         ])
             ->statePath('data')
-            ->model(Profile::class);
+            ->model($this->profile);
     }
 
     public function submit()
     {
-        $this->validate();
-        $updated = auth()->user()->profile->portfolios()->update($this->form->getState());
+        $updated = $this->profile->update($this->form->getState());
         if ($updated)
             Notification::make()
                 ->title("Modification effectuée avec succès")

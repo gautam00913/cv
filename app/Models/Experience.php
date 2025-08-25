@@ -11,6 +11,15 @@ class Experience extends Model
     /** @use HasFactory<\Database\Factories\ExperienceFactory> */
     use HasFactory;
 
+    protected $fillable = ['description', 'current', 'started_at', 'finished_at', 'sort', 'job_title_id', 'company_id', 'profile_id'];
+    protected function casts(): array
+    {
+        return [
+            'started_at' => 'datetime',
+            'finished_at' => 'datetime',
+        ];
+    }
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

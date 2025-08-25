@@ -1,6 +1,9 @@
-<div class="lg:space-x-4 flex flex-col lg:flex-row items-start">
+<div class="lg:space-x-4 flex flex-col lg:flex-row lg:items-start">
     <div class="bg-white lg:w-3/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
-        <h1 class="font-semibold mb-4 text-xl">Educations</h1>
+        <h1 class="font-semibold mb-4 text-xl flex justify-between items-center">
+            <span>Educations</span>
+            <a href="#formulaire" class="lg:hidden">+</a>
+        </h1>
         <div class="space-y-4">
             @foreach ($this->educations as $education)
                 <x-card>
@@ -29,7 +32,7 @@
     </div>
     <div class="bg-white lg:w-2/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
         <h2 class="font-semibold mb-4 text-xl">Formulaire</h2>
-        <form wire:submit="submit">
+        <form wire:submit="submit" id="formulaire">
             {{ $this->form }}
             <div class="mt-5">
                 <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>

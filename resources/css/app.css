@@ -13,3 +13,30 @@ html, body {
   .bo{
     border: 1px solid red;
   }
+@keyframes slideIn {
+  from {
+    transform: translateX(100%); opacity: 0;
+  }
+  to {
+    transform: translateX(0); opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0); opacity: 1;
+  }
+  to {
+    transform: translateX(-100%); opacity: 0;
+  }
+}
+
+.animate-enter{
+  animation: slideIn 0.6s ease forwards;
+  z-index: 10;
+}
+
+.animate-leave{
+  animation: slideOut 0.6s ease forwards;
+  z-index: 5;
+}
