@@ -12,7 +12,9 @@
         <div class="flex flex-col md:flex-row justify-center items-center md:justify-normal space-x-8 md:ml-20 my-5">
             <div class="-mt-20 z-20">
                 @if ($user->profile->picture)
-                    <img src="{{ Storage::url($user->profile->picture) }}" class="rounded-full w-40 h-40 shadow-lg md:shadow-sm" />
+                    <a href="{{ Storage::url($user->profile->picture) }}" data-lightbox="image-avatar" data-title="Photo de {{ $user->name }}">
+                        <img src="{{ Storage::url($user->profile->picture) }}" class="rounded-full object-fill object-center w-40 h-40 shadow-lg md:shadow-sm" alt="Photo de {{ $user->name }}" />
+                    </a>
                 @else
                     <p class="rounded-full w-40 h-40 shadow-lg md:shadow-sm flex items-center justify-center bg-secondaryLight">
                         <i class="fa-solid fa-user text-6xl"></i>
