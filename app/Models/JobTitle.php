@@ -11,6 +11,8 @@ class JobTitle extends Model
     /** @use HasFactory<\Database\Factories\JobTitleFactory> */
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);

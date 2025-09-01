@@ -1,0 +1,42 @@
+<div class="lg:space-x-4 flex flex-col lg:flex-row lg:items-start">
+    <div class="bg-white lg:w-3/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
+         <h1 class="font-semibold mb-4 text-xl flex justify-between items-center">
+            <span>Postes</span>
+            <a href="#formulaire" class="lg:hidden">+</a>
+        </h1>
+        <div class="space-y-4">
+            @foreach ($positions as $key => $position)
+                <x-card :key="$position->id">
+                    <div class="flex justify-between items-center border-b pb-2 mb-3">
+                        <div>
+                            #{{ $key + 1 }}
+                        </div>
+                        <div class="flex">
+                            <span wire:click="editPosition({{ $position->id }})" class="bg-white shadow px-2 py-1 rounded-full hover:bg-primaryDark hover:text-white text-sm cursor-pointer ml-4 text-gray-500"><i class="fa-solid fa-pen"></i></span>
+                            <span x-data @click="$dispatch('confirm-delete', {action: 'delete-position', data: {what: 'position', id: {{ $position->id }}}})" class="bg-white shadow px-2 py-1 rounded-full hover:bg-primaryDark hover:text-white text-sm cursor-pointer ml-2 text-gray-500">
+                                <i class="fa-solid fa-trash"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold mb-1">
+                                <?= $position->name ?>
+                        </h2>
+                    </div>
+                </x-card>
+            @endforeach
+        </div>
+        <div class="border-t mt-5 pt-5">
+            {{ $positions->links() }}
+        </div>
+    </div>
+    <div class="bg-white lg:w-2/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
+        <h2 class="font-semibold mb-4 text-xl">Formulaire</h2>
+        <form wire:submit="submit" id="formulaire">
+            {{ $this->form }}
+            <div class="mt-5">
+                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>
+            </div>
+        </form>
+    </div>
+</div>

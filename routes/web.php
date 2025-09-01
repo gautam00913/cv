@@ -9,6 +9,8 @@ use App\Livewire\Dashboard;
 use App\Livewire\Educations\Index as EducationsIndex;
 use App\Livewire\Experiences\Index as ExperiencesIndex;
 use App\Livewire\HomePage;
+use App\Livewire\Pages\Company;
+use App\Livewire\Pages\Position;
 use App\Livewire\Portfolios\Index as PortfoliosIndex;
 use App\Livewire\Profile\CoverPicture;
 use App\Livewire\Profile\ShowProfile;
@@ -34,6 +36,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/educations', EducationsIndex::class)->name('educations');
     Route::get('/experiences', ExperiencesIndex::class)->name('experiences');
     Route::get('/portfolios', PortfoliosIndex::class)->name('portfolios');
+    Route::get('/companies', Company::class)->name('showCompanies');
+    Route::get('/positions', Position::class)->name('showPositions');
     Route::get('/setting', Setting::class)->name('setting');
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });

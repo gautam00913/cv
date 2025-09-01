@@ -32,7 +32,7 @@
                         @php
                             $sub_group = $competences->first();
                         @endphp
-                        <li @if(!$sub_group->competenceSubTitle)style="list-style-type: none;"@endif>
+                        <li @if(!$sub_group->competenceSubTitle)style="list-style-type: none;"@endif key="{{ $sub_group->competence_sub_title_id }}">
                             @if ($sub_group->competenceSubTitle)
                                 <h2 class="font-semibold mb-3 flex items-center">
                                     {{ $sub_group->competenceSubTitle->name }} 
@@ -42,7 +42,7 @@
                             @endif
                             <div class="space-y-4">
                                 @foreach ($competences as $competence)
-                                    <x-card>
+                                    <x-card :key="$competence->id">
                                         <div class="flex justify-between items-center">
                                             <div>
                                                 {{ $competence->tag }}
