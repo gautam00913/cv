@@ -2,7 +2,7 @@
     <div class="relative rounded-b-2xl h-[300px] shadow-xl" style="background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url('{{ Storage::url($profile->cover_picture) }}');">
         <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
             <div class="text-end space-x-3 mr-5">
-                <x-button type="link" href="{{ route('cover_picture') }}" wire:navigate class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-camera"></i> Changer</x-button>
+                <x-button type="link" href="{{ route('cover_picture') }}" wire:navigate class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-camera mr-1"></i> Changer</x-button>
             </div>
         </div>
     </div>

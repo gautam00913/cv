@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\VisitController;
 use App\Livewire\Competences\Index;
 use App\Livewire\Competences\Subtitle;
@@ -17,7 +18,7 @@ use App\Livewire\Profile\ShowProfile;
 use App\Livewire\Setting;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', HomePage::class);
+Route::get('/', HomePage::class)->name('home');
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authenticate')->name('authenticate');
@@ -42,3 +43,4 @@ Route::middleware('auth')->group(function(){
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 Route::post('visits', VisitController::class)->name('visits.store');
+//Route::get('/cv', [CvController::class, 'download'])->name('cv.download');

@@ -4,8 +4,19 @@
             <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
                 <div class="text-end space-x-3 mr-5">
                     <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> Appeler</x-button>
-                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-envelope"></i> Message</x-button>
-                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-download"></i> CV</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openContactModal')"><i class="fa-solid fa-envelope mr-1"></i> Message</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
+                </div>
+            </div>
+            <div class="md:hidden absolute bottom-0 py-5 px-1 left-0 right-0 bg-primary/60 rounded-b-2xl">
+                <div class="flex items-center justify-between space-x-1">
+                    <div class="flex items-center space-x-2">
+                        <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none size-8 flex items-center justify-center"><i class="fa-solid fa-phone"></i></x-button>
+                        <x-button class="text-secondaryLight border-secondaryLight hover:border-none size-8" @click="$dispatch('openContactModal')"><i class="fa-solid fa-envelope"></i></x-button>
+                    </div>
+                    <div>
+                        <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,21 +42,14 @@
     <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-0">
         <div>
             <div class="flex items-center space-x-5 lg:space-x-10 border-b-2 pb-3 mb-4 overflow-x-scroll" style="scrollbar-width: none;">
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'competence']) wire:click="showComponent('competence')">Compétences</x-button>
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'experience']) wire:click="showComponent('experience')">Expérience</x-button>
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'education']) wire:click="showComponent('education')">éducation</x-button>
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'portfolio']) wire:click="showComponent('portfolio')">Portfolio</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'competence']) wire:click="showComponent('competence')" target="showComponent('competence')">Compétences</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'experience']) wire:click="showComponent('experience')" target="showComponent('experience')">Expérience</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'education']) wire:click="showComponent('education')" target="showComponent('education')">éducation</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'portfolio']) wire:click="showComponent('portfolio')" target="showComponent('portfolio')">Portfolio</x-button>
             </div>
             <div class="border-2 rounded-md p-3 md:p-5 border-secondaryLight">
-                <div wire:loading.delay class="w-full">
-                    <p class="flex justify-center">
-                        <svg class="animate-spin h-40 w-40 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </p>
-                </div>
-                <div wire:loading.remove>
+               
+                <div>
                     @switch($active)
                         @case('experience')
                             <livewire:experiences.show :profile="$user->profile" />
@@ -63,4 +67,7 @@
             </div>
         </div>
     </div>
+    <livewire:contact.contact-modal />
+    <livewire:get-cv />
+
 </div>

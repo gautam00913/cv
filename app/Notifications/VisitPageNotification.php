@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Models\Visit;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -14,8 +14,9 @@ class VisitPageNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
+    public function __construct(
+        public Visit $visit
+    ) {
         //
     }
 
@@ -35,9 +36,9 @@ class VisitPageNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -48,10 +49,10 @@ class VisitPageNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'ip_address' => $notifiable->ip_address,
-            'country_code' => $notifiable->country_code,
-            'country_name' => $notifiable->country->t_name,
-            'date' => $notifiable->date->format('d/m/Y H:i'),
+            'ip_address' => $this->visit->ip_address,
+            'country_code' => $this->visit->country_code,
+            'country_name' => $this->visit->country->t_name,
+            'date' => $this->visit->date->format('d/m/Y H:i'),
         ];
     }
 }
