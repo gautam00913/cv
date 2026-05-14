@@ -8,7 +8,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Tintnaingwin\EmailChecker\Facades\EmailChecker;
 
-class GetCV extends Component
+class GetCv extends Component
 {
     use CVGenerator;
     
