@@ -8,7 +8,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Tintnaingwin\EmailChecker\Facades\EmailChecker;
 
-class GetCv extends Component
+class DownloadCv extends Component
 {
     use CVGenerator;
     
@@ -70,7 +70,7 @@ class GetCv extends Component
     
     public function render()
     {
-        return view('livewire.get-cv');
+        return view('livewire.download-cv');
     }
 
      protected function resetForm(): void

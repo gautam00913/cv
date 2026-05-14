@@ -68,6 +68,6 @@
         </div>
     </div>
     <livewire:contact.contact-modal />
-    <livewire:get-cv />
+    <livewire:download-cv />
 
 </div>
