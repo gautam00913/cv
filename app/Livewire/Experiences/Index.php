@@ -64,7 +64,7 @@ class Index extends Component implements HasForms
                             ->required(),
                     ])
                     ->addActionLabel('Ajouter une expérience')
-                    ->orderable('sort')
+                    ->orderColumn('sort')
                     ->reorderableWithButtons()
                     ->collapsed()
                     ->itemLabel(fn (array $state): ?string => $state['sort'] ?? null)

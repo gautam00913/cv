@@ -30,7 +30,7 @@ class VisitController extends Controller
                 return response()->json(['status' => 'succeed']);
             }
     
-            return response()->json(['status' => 'failed']);
         }
+        return response()->json(['status' => 'failed']);
     }
 }

@@ -22,7 +22,7 @@
             <nav x-data="{showMobile: false, showDropdown: false}" class="bg-primary" @click.outside="showMobile = false">
                 <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                   <div class="relative flex h-16 items-center justify-between">
-                    <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
                       <!-- Mobile menu button-->
                       <button @click="showMobile = !showMobile" type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-black hover:primaryBase hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="absolute -inset-0.5"></span>
@@ -52,7 +52,7 @@
                           </svg>
                           CV Builder
                       </a>
-                      <div class="hidden sm:ml-6 sm:block">
+                      <div class="hidden md:ml-6 md:block">
                         <div class="flex space-x-4">
                             <a href="{{ route('dashboard') }}" wire:navigate  
                                 @if(Route::is('dashboard'))class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page"
@@ -82,7 +82,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
                       @auth
                         @livewire('notifications-dropdown')
                       @else
@@ -122,7 +122,7 @@
                 </div>
               
                 <!-- Mobile menu, show/hide based on menu state. -->
-                <div class="sm:hidden" id="mobile-menu">
+                <div class="md:hidden" id="mobile-menu">
                   <div x-cloak x-show="showMobile" class="space-y-1 px-2 pt-2 pb-3">
                     <a href="{{ route('dashboard') }}" wire:navigate 
                         @if(Route::is('dashboard'))class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page"

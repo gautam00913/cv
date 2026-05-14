@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>CV - {{ $profile->user->name }}</title>
+    <title>CV - <?= $profile->user->name ?></title>
     <style>
         * {
             margin: 0;
@@ -230,9 +230,9 @@
                     <!-- Photo -->
                     <div class="photo">
                         @if($profile->picture)
-                            <img src="{{ storage_path('app/public/' . $profile->picture) }}" alt="Photo">
+                            <img src="<?= storage_path('app/public/' . $profile->picture) ?>" alt="Photo">
                         @else
-                            <img src="{{ public_path('images/avatar.png') }}" alt="Photo">
+                            <img src="<?= public_path('images/avatar.png') ?>" alt="Photo">
                         @endif
                     </div>
     
@@ -243,13 +243,13 @@
                             @if($profile->user->email)
                                 <div class="contact-row">
                                     <span class="contact-label">Email:</span>
-                                    {{ $profile->user->email }}
+                                    <?= $profile->user->email ?>
                                 </div>
                             @endif
                             @if($profile->user->phone)
                                 <div class="contact-row">
                                     <span class="contact-label">Tél:</span>
-                                    {{ $profile->user->phone }}
+                                    <?= $profile->user->phone ?>
                                 </div>
                             @endif
                         </div>
@@ -262,7 +262,7 @@
                             <ul class="skills-list">
                                 @foreach($profile->competences as $key => $competence)
                                     @if ($key < 25)
-                                        <li>{{ $competence->competenceTitle->name }}</li>
+                                        <li><?= $competence->competenceTitle->name ?></li>
                                     @endif
                                 @endforeach
                             </ul>
@@ -276,7 +276,7 @@
                     @if($profile->biography)
                         <div class="section">
                             <h3 class="section-title">Profil</h3>
-                            <p class="profile-text">{{ Str::words($profile->biography, 20) }}</p>
+                            <p class="profile-text"><?= Str::words($profile->biography, 20) ?></p>
                         </div>
                     @endif
     
@@ -287,14 +287,14 @@
                             @foreach($profile->experiences->sortByDesc('started_at') as $experience)
                                 @if ($loop->index < 6)
                                     <div class="experience-item">
-                                        <h4>{{ $experience->jobTitle->name }}</h4>
-                                        <a class="company" @if($experience->company->website)href="{{ $experience->company->website }}" target="_blank" rel="noopener noreferrer" @endif>{{ $experience->company->name }}</a>
+                                        <h4><?= $experience->jobTitle->name ?></h4>
+                                        <a class="company" @if($experience->company->website)href="<?= $experience->company->website ?>" target="_blank" rel="noopener noreferrer" @endif><?= $experience->company->name ?></a>
                                         <div class="date">
-                                            {{ $experience->started_at->format('m/Y') }} -
-                                            @if($experience->current) Aujourd'hui @else {{ $experience->finished_at->format('m/Y') }} @endif
+                                            <?= $experience->started_at->format('m/Y') ?> -
+                                            @if($experience->current) Aujourd'hui @else <?= $experience->finished_at->format('m/Y') ?> @endif
                                         </div>
                                         @if($experience->description)
-                                            <p class="description">{{ Str::words($experience->description, 30) }}</p>
+                                            <p class="description"><?= Str::words($experience->description, 30) ?></p>
                                         @endif
                                     </div>
                                 @endif
@@ -309,9 +309,9 @@
                             @foreach($profile->educations->sortByDesc('year') as $education)
                                 @if ($loop->index < 4)
                                     <div class="education-item">
-                                        <h4>{{ $education->grade }}</h4>
-                                        <div class="school">{{ Str::words($education->description, 20) }}</div>
-                                        <div class="year">{{ $education->year }}</div>
+                                        <h4><?= $education->grade ?></h4>
+                                        <div class="school"><?= Str::words($education->description, 20) ?></div>
+                                        <div class="year"><?= $education->year ?></div>
                                     </div>
                                 @endif
                             @endforeach
@@ -332,19 +332,19 @@
                         <tr>
                             @if($portfolio->picture)
                                 <td valign="top" style="padding-right: 10px; padding-left: 10px;">
-                                    <img src="{{ storage_path('app/public/' . $portfolio->picture) }}" alt="portfolio image" style="width: 150px; height: 150px; object-fit: cover; border-radius: 4px;">
+                                    <img src="<?= storage_path('app/public/' . $portfolio->picture) ?>" alt="portfolio image" style="width: 150px; height: 150px; object-fit: cover; border-radius: 4px;">
                                 </td>
                             @endif
                             <td valign="top">
                                 <h4>
                                     @if ($portfolio->link)
-                                        <a href="{{ $portfolio->link }}" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">{{ $portfolio->title }}</a>
+                                        <a href="<?= $portfolio->link ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer"><?= $portfolio->title ?></a>
                                     @else
-                                        {{ $portfolio->title }}
+                                        <?= $portfolio->title ?>
                                     @endif
                                 </h4>
                                 @if($portfolio->description)
-                                    <p>{{ $portfolio->description }}</p>
+                                    <p><?= $portfolio->description ?></p>
                                 @endif
                             </td>
                         </tr>
@@ -356,7 +356,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        CV généré le {{ now()->format('d/m/Y') }} sur <a href="{{ route('home') }}" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">mon portfolio en ligne</a>.
+        CV généré le <?= now()->format('d/m/Y') ?> sur <a href="<?= route('home') ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">mon portfolio en ligne</a>.
     </div>
 </body>
 </html>

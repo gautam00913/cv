@@ -25,7 +25,7 @@
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
-        class="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
+        class="absolute right-0 z-10 mt-2 min-w-64 sm:w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
         role="menu"
     >
         <div class="flex items-center justify-between px-4 py-2 border-b border-gray-100">

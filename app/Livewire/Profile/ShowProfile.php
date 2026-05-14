@@ -72,11 +72,11 @@ class ShowProfile extends Component implements HasForms
     protected function getFormSchema(): array
     {
         return [
-            TextInput::make('name')->required(),
+            TextInput::make('name')->label('Nom & Prénom')->required(),
             TextInput::make('email')->email()->required(),
-            TextInput::make('phone')->tel()->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')->required(),
-            Textarea::make('biography'),
-            FileUpload::make('picture')->image()->directory('images')
+            TextInput::make('phone')->label('Téléphone')->tel()->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')->required(),
+            Textarea::make('biography')->label('Biographie')->rows(3),
+            FileUpload::make('picture')->label("Photo de profil")->image()->directory('images')
         ];
     }
 
