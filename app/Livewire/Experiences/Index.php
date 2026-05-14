@@ -3,6 +3,7 @@
 namespace App\Livewire\Experiences;
 
 use App\Models\Profile;
+use Filament\Forms\Components\Hidden;
 use Livewire\Component;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Select;
@@ -35,6 +36,7 @@ class Index extends Component implements HasForms
                 Repeater::make('experiences')
                     ->relationship('experiences')
                     ->schema([
+                        Hidden::make('sort'),
                         Select::make('company_id')
                             ->label("Entreprise")
                             ->relationship('company', 'name')
@@ -62,8 +64,10 @@ class Index extends Component implements HasForms
                             ->required(),
                     ])
                     ->addActionLabel('Ajouter une expérience')
-                    ->orderColumn('sort')
+                    ->orderable('sort')
+                    ->reorderableWithButtons()
                     ->collapsed()
+                    ->itemLabel(fn (array $state): ?string => $state['sort'] ?? null)
                     ->label(''),
             ])
             ->statePath('data')

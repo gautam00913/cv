@@ -29,7 +29,7 @@ class Index extends Component implements HasForms
     {
         return $form->schema([
             Repeater::make('portfolios')
-                ->relationship()
+                ->relationship('portfolios')
                 ->schema([
                     TextInput::make('title')
                         ->label("Titre")

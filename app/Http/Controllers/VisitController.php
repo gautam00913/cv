@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Visit;
+use App\Notifications\VisitPageNotification;
 use Illuminate\Http\Request;
 
 class VisitController extends Controller
@@ -19,6 +20,11 @@ class VisitController extends Controller
             'date' => 'required|string',
         ]);
         $visit = Visit::create($request->only(['ip_address', 'country_code', 'uag', 'date']));
-        return response()->json(['status' => $visit ? 'succeed' : 'failed']);
+        if($visit){
+            $visit->notify(new VisitPageNotification());
+            
+            return response()->json(['status' => 'succeed']);
+        }
+        return response()->json(['status' => 'failed']);
     }
 }
