@@ -125,7 +125,7 @@
             color: #888888;
             font-weight: 700;
             font-size: 8pt;
-            margin-bottom: 2px;
+            margin-bottom: 0.25rem;
         }
 
         .skills-item {
