@@ -21,7 +21,7 @@
     </head>
 
     <body class="antialiased bg-primary/70">
-        <div class="container mx-auto min-h-full px-3 md:px-8 lg:px-10">
+        <div class="container mx-auto min-h-full">
             {{ $slot }}
         </div>
 

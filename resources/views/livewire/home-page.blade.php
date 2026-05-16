@@ -1,5 +1,5 @@
 <div class="overflow-x-hidden">
-    <section data-aos="flip-left" data-aos-duration="3000" data-aos-easing="ease-out-cubic" data-aos-once="true">
+    <section class="md:px-8 lg:px-10" data-aos="flip-left" data-aos-duration="3000" data-aos-easing="ease-out-cubic" data-aos-once="true">
         <div class="relative rounded-b-2xl h-[300px] shadow-xl" style="background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url({{ Storage::url($user->profile->cover_picture) }});">
             <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
                 <div class="text-end space-x-3 mr-5">
@@ -39,7 +39,7 @@
         </div>
     </section>
 
-    <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-0">
+    <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-8 lg:mx-10">
         <div>
             <div class="flex items-center space-x-5 lg:space-x-10 border-b-2 pb-3 mb-4 overflow-x-scroll" style="scrollbar-width: none;">
                 <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'competence']) wire:click="showComponent('competence')" target="showComponent('competence')">Compétences</x-button>
