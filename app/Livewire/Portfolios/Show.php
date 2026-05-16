@@ -2,55 +2,43 @@
 
 namespace App\Livewire\Portfolios;
 
-use App\Models\Portfolio;
 use App\Models\Profile;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public $showList;
-    public Portfolio $portfolio;
+    public Profile $showList;
+
     public int $index = 0;
-    
+
     public function mount(Profile $profile)
     {
         $this->showList = $profile->load(['portfolios']);
-        $this->index = 0;
-        $this->showPortfolio();
     }
 
-    public function caroussel()
+    public function nextElement(): void
     {
-        $this->nextElement();
+        $count = $this->showList->portfolios->count();
+        if ($count > 0) {
+            $this->index = ($this->index + 1) % $count;
+        }
     }
 
-    public function nextElement()
+    public function previousElement(): void
     {
-        if($this->index < count($this->showList->portfolios) - 1)
-            $this->index ++;
-        else
-            $this->index = 0;
-        
-        $this->showPortfolio();
+        $count = $this->showList->portfolios->count();
+        if ($count > 0) {
+            $this->index = ($this->index - 1 + $count) % $count;
+        }
     }
-    
-    public function previousElement()
+
+    public function goToElement(int $index): void
     {
-        if($this->index > 0)
-            $this->index --;
-        else
-            $this->index = 0;
-        
-        $this->showPortfolio();
+        $this->index = $index;
     }
 
     public function render()
     {
         return view('livewire.portfolios.show');
-    }
-
-    private function showPortfolio()
-    {
-        $this->portfolio = $this->showList->portfolios[$this->index] ?? null;
     }
 }
