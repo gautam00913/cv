@@ -125,6 +125,7 @@
             color: #888888;
             font-weight: 700;
             font-size: 8pt;
+            margin-bottom: 2px;
         }
 
         .skills-item {
@@ -314,7 +315,7 @@
                                             @if($experience->current) Aujourd'hui @else <?= $experience->finished_at->format('m/Y') ?> @endif
                                         </div>
                                         @if($experience->description)
-                                            <p class="description"><?= Str::words($experience->description, 50) ?></p>
+                                            <p class="description"><?= Str::words($experience->description, 100) ?></p>
                                         @endif
                                     </div>
                                 @endif
