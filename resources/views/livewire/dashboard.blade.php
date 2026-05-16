@@ -17,7 +17,7 @@
             @endif
         </div>
         <div class="text-center md:text-start">
-            <h1 class="md:text-2xl font-bold mb-2 relative">Hello, moi c'est {{ $user->name }} <a class="ml-1 hidden sm:block text-sm absolute -top-2" href="{{ route('profile') }}" wire:navigate><i class="fa-solid fa-pen"></i></a></h1>
+            <h1 class="md:text-2xl font-bold mb-2 relative">Hello, moi c'est {{ $user->name }} <a class="ml-1 hidden sm:inline text-sm absolute -top-2" href="{{ route('profile') }}" wire:navigate><i class="fa-solid fa-pen"></i></a></h1>
             <p class="italic font-semibold text-sm text-secondaryLight"><?= $profile->biography ?></p>
         </div>
     </div>

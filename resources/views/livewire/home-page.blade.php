@@ -4,18 +4,18 @@
             <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
                 <div class="text-end space-x-3 mr-5">
                     <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> Appeler</x-button>
-                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openContactModal')"><i class="fa-solid fa-envelope mr-1"></i> Message</x-button>
-                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openContactModal')" target="openContactModal"><i class="fa-solid fa-envelope mr-1"></i> Message</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })" target="openCVModal"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
                 </div>
             </div>
             <div class="md:hidden absolute bottom-0 py-5 px-1 left-0 right-0 bg-primary/60 rounded-b-2xl">
                 <div class="flex items-center justify-between space-x-1">
                     <div class="flex items-center space-x-2">
                         <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none size-8 flex items-center justify-center"><i class="fa-solid fa-phone"></i></x-button>
-                        <x-button class="text-secondaryLight border-secondaryLight hover:border-none size-8" @click="$dispatch('openContactModal')"><i class="fa-solid fa-envelope"></i></x-button>
+                        <x-button class="text-secondaryLight border-secondaryLight hover:border-none size-8" @click="$dispatch('openContactModal')" target="openContactModal"><i class="fa-solid fa-envelope"></i></x-button>
                     </div>
                     <div>
-                        <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
+                        <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })" target="openCVModal"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
                     </div>
                 </div>
             </div>

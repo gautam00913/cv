@@ -154,7 +154,7 @@
             </nav>
         </header>
           
-        <div class="container mx-auto min-h-full">
+        <div class="container mx-auto min-h-full px-3 md:px-10 lg:px-20">
             {{ $slot }}
         </div>
         <div x-cloak x-data="{openModal: false, action: '', data: null}" @confirm-delete.window="{action, data} = $event.detail; openModal = true" @close-delete-modal.window="action = ''; data = null; openModal = false;"
@@ -174,7 +174,7 @@
                   <!-- Modal footer -->
                   <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                       <template x-if="action">
-                        <button  @click="$dispatch(action, data)" type="button" id="confirm-delete" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Oui</button>
+                        <button @click="$dispatch(action, data)" type="button" id="confirm-delete" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Oui</button>
                       </template>
                       <button @click="openModal = false" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary focus:z-10 focus:ring-4 focus:ring-primaryBase">Non</button>
                   </div>

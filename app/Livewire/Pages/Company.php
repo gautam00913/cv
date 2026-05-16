@@ -43,15 +43,17 @@ class Company extends Component implements HasForms
     }
 
     #[On('delete-company')]
-    public function deleteCompany($data)
+    public function deleteCompany(int $id)
     {
-        $company = CompanyModel::find($data['id']);
+        $company = CompanyModel::find($id);
         if($company) {
             $company->delete();
             Notification::make()
                 ->title('Entreprise supprimée avec succès')
                 ->success()
                 ->send();
+                
+            return $this->dispatch('close-delete-modal');
         }
     }
 

@@ -42,15 +42,17 @@ class Position extends Component implements HasForms
     }
 
     #[On('delete-position')]
-    public function deletePosition($data)
+    public function deletePosition(int $id)
     {
-        $jobTitle = JobTitle::find($data['id']);
+        $jobTitle = JobTitle::find($id);
         if($jobTitle) {
             $jobTitle->delete();
             Notification::make()
                 ->title('Poste supprimée avec succès')
                 ->success()
                 ->send();
+            
+            return $this->dispatch('close-delete-modal');
         }
     }
 

@@ -13,7 +13,7 @@
                         </div>
                         <div class="flex">
                             <span wire:click="editCompany({{ $company->id }})" class="bg-white shadow px-2 py-1 rounded-full hover:bg-primaryDark hover:text-white text-sm cursor-pointer ml-4 text-gray-500"><i class="fa-solid fa-pen"></i></span>
-                            <span x-data @click="$dispatch('confirm-delete', {action: 'delete-company', data: {what: 'company', id: {{ $company->id }}}})" class="bg-white shadow px-2 py-1 rounded-full hover:bg-primaryDark hover:text-white text-sm cursor-pointer ml-2 text-gray-500">
+                            <span x-data @click="$dispatch('confirm-delete', {action: 'delete-company', data: {id: {{ $company->id }}}})" class="bg-white shadow px-2 py-1 rounded-full hover:bg-primaryDark hover:text-white text-sm cursor-pointer ml-2 text-gray-500">
                                 <i class="fa-solid fa-trash"></i>
                             </span>
                         </div>
