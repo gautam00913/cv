@@ -116,16 +116,23 @@
         }
 
         /* Skills */
-        .skills-list {
-            list-style: none;
+        .skills-container {
+            margin-bottom: 5px;
+        }
+        .skills-container h4 {
+            text-decoration: underline;
+            font-style: italic;
+            color: #888888;
+            font-weight: 700;
+            font-size: 8pt;
         }
 
-        .skills-list li {
+        .skills-item {
             display: inline-block;
             background: #e0f2f1;
             color: #00796b;
             padding: 4px 8px;
-            margin: 2px;
+            margin: 0.25rem;
             border-radius: 3px;
             font-size: 8pt;
         }
@@ -197,7 +204,7 @@
             color: #666;
         }
 
-        .portfolio-section {
+        .next-page {
             page-break-before: always;
         }
 
@@ -256,16 +263,29 @@
                     </div>
     
                     <!-- Skills -->
-                    @if($profile->competences->count() > 0)
+                    @if($competences_count > 0)
                         <div class="section">
                             <h3 class="section-title" style="font-size: 10pt;">Compétences</h3>
-                            <ul class="skills-list">
-                                @foreach($profile->competences as $key => $competence)
-                                    @if ($key < 25)
-                                        <li><?= $competence->competenceTitle->name ?></li>
-                                    @endif
-                                @endforeach
-                            </ul>
+                            @php
+                                $competence_index = 0;
+                            @endphp
+                            @foreach($profile->competences->groupBy('competence_title_id') as $key => $competences)
+                                @if ($competence_index < 20)
+                                    <div class="skills-container">
+                                        <h4><?= $competences->first()->competenceTitle->name ?></h4>
+                                        <div>
+                                            @foreach ($competences as $competence)
+                                                @if ($competence_index < 20)
+                                                    <p class="skills-item"><?= $competence->tag ?></p>
+                                                @endif
+                                                @php
+                                                    $competence_index += 1;
+                                                @endphp
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     @endif
                 </td>
@@ -322,35 +342,77 @@
         </table>
     </div>
 
-    <!-- Portfolio -->
-    @if($profile->portfolios->count() > 0)
-        <div class="section portfolio-section">
-            <h3 class="section-title">Portfolio</h3>
-            @foreach($profile->portfolios as $key => $portfolio)
-                @if ($key < 10)
-                    <table class="portfolio-item" cellpadding="0" cellspacing="0">
-                        <tr>
-                            @if($portfolio->picture)
-                                <td valign="top" style="padding-right: 10px; padding-left: 10px;">
-                                    <img src="<?= storage_path('app/public/' . $portfolio->picture) ?>" alt="portfolio image" style="width: 150px; height: 150px; object-fit: cover; border-radius: 4px;">
-                                </td>
-                            @endif
-                            <td valign="top">
-                                <h4>
-                                    @if ($portfolio->link)
-                                        <a href="<?= $portfolio->link ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer"><?= $portfolio->title ?></a>
-                                    @else
-                                        <?= $portfolio->title ?>
+    <!-- Page 2 -->
+    @if($portfolios_count > 0 || $competences_count > 20)
+        <div class="next-page">
+            <table>
+                <tr>
+                    <!-- Left Column -->
+                    @if($competences_count > 20)
+                        <td class="sidebar">
+                        <!-- Skills -->
+                            <div class="section">
+                                <h3 class="section-title" style="font-size: 10pt;">Compétences (suite)</h3>
+                                @php
+                                    $competence_index = 0;
+                                @endphp
+                                @foreach($profile->competences->slice(20)->groupBy('competence_title_id') as $key => $competences)
+                                    @if ($competence_index < 20)
+                                        <div class="skills-container">
+                                            <h4><?= $competences->first()->competenceTitle->name ?></h4>
+                                            <div>
+                                                @foreach ($competences as $competence)
+                                                    @if ($competence_index < 20)
+                                                        <p class="skills-item"><?= $competence->tag ?></p>
+                                                        @php
+                                                            $competence_index += 1;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     @endif
-                                </h4>
-                                @if($portfolio->description)
-                                    <p><?= $portfolio->description ?></p>
-                                @endif
-                            </td>
-                        </tr>
-                    </table>
-                @endif
-            @endforeach
+                                @endforeach
+                            </div>
+                        </td>
+                    @endif
+        
+                    <!-- Right Column -->
+                    <td class="main-content">
+                        <!-- Portfolio -->
+                        @if($portfolios_count > 0)
+                            <div class="section">
+                                <h3 class="section-title">Portfolio</h3>
+                                @foreach($profile->portfolios as $key => $portfolio)
+                                    @if ($key < 9)
+                                        <table class="portfolio-item" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                @if($portfolio->picture)
+                                                    <td valign="top" style="padding-right: 10px; padding-left: 10px;">
+                                                        <img src="<?= storage_path('app/public/' . $portfolio->picture) ?>" alt="portfolio image" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;">
+                                                    </td>
+                                                @endif
+                                                <td valign="top">
+                                                    <h4>
+                                                        @if ($portfolio->link)
+                                                            <a href="<?= $portfolio->link ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer"><?= $portfolio->title ?></a>
+                                                        @else
+                                                            <?= $portfolio->title ?>
+                                                        @endif
+                                                    </h4>
+                                                    @if($portfolio->description)
+                                                        <p><?= $portfolio->description ?></p>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
+                    </td>
+                </tr>
+            </table>
         </div>
     @endif
 
