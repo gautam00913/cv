@@ -270,12 +270,12 @@
                                 $competence_index = 0;
                             @endphp
                             @foreach($profile->competences->groupBy('competence_title_id') as $key => $competences)
-                                @if ($competence_index < 20)
+                                @if ($competence_index < 50)
                                     <div class="skills-container">
                                         <h4><?= $competences->first()->competenceTitle->name ?></h4>
                                         <div>
                                             @foreach ($competences as $competence)
-                                                @if ($competence_index < 20)
+                                                @if ($competence_index < 50)
                                                     <p class="skills-item"><?= $competence->tag ?></p>
                                                 @endif
                                                 @php
@@ -296,7 +296,7 @@
                     @if($profile->biography)
                         <div class="section">
                             <h3 class="section-title">Profil</h3>
-                            <p class="profile-text"><?= Str::words($profile->biography, 20) ?></p>
+                            <p class="profile-text"><?= Str::words($profile->biography, 50) ?></p>
                         </div>
                     @endif
     
@@ -314,7 +314,7 @@
                                             @if($experience->current) Aujourd'hui @else <?= $experience->finished_at->format('m/Y') ?> @endif
                                         </div>
                                         @if($experience->description)
-                                            <p class="description"><?= Str::words($experience->description, 30) ?></p>
+                                            <p class="description"><?= Str::words($experience->description, 50) ?></p>
                                         @endif
                                     </div>
                                 @endif
@@ -330,7 +330,7 @@
                                 @if ($loop->index < 4)
                                     <div class="education-item">
                                         <h4><?= $education->grade ?></h4>
-                                        <div class="school"><?= Str::words($education->description, 20) ?></div>
+                                        <div class="school"><?= Str::words($education->description, 50) ?></div>
                                         <div class="year"><?= $education->year ?></div>
                                     </div>
                                 @endif
@@ -343,12 +343,12 @@
     </div>
 
     <!-- Page 2 -->
-    @if($portfolios_count > 0 || $competences_count > 20)
+    @if($portfolios_count > 0 || $competences_count > 50)
         <div class="next-page">
             <table>
                 <tr>
                     <!-- Left Column -->
-                    @if($competences_count > 20)
+                    @if($competences_count > 50)
                         <td class="sidebar">
                         <!-- Skills -->
                             <div class="section">
@@ -356,13 +356,13 @@
                                 @php
                                     $competence_index = 0;
                                 @endphp
-                                @foreach($profile->competences->slice(20)->groupBy('competence_title_id') as $key => $competences)
-                                    @if ($competence_index < 20)
+                                @foreach($profile->competences->slice(50)->groupBy('competence_title_id') as $key => $competences)
+                                    @if ($competence_index < 50)
                                         <div class="skills-container">
                                             <h4><?= $competences->first()->competenceTitle->name ?></h4>
                                             <div>
                                                 @foreach ($competences as $competence)
-                                                    @if ($competence_index < 20)
+                                                    @if ($competence_index < 50)
                                                         <p class="skills-item"><?= $competence->tag ?></p>
                                                         @php
                                                             $competence_index += 1;
