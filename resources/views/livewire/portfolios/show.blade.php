@@ -26,7 +26,7 @@
                      :style="'transform: translateX(-' + (index * 100) + '%)'">
                     @foreach ($showList->portfolios as $key => $portfolio)
                         <div class="w-full flex-shrink-0 h-full" wire:key="portfolio-{{ $portfolio->id }}">
-                            <a href="{{ $portfolio->link ?? '#' }}" class="h-full flex flex-col md:flex-row items-center bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <a @if($portfolio->link)href="{{ $portfolio->link }}" target="_blank" @endif class="h-full flex flex-col md:flex-row items-center bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <div class="w-full md:w-1/2 lg:w-1/3 h-56 md:h-full">
                                     <img class="w-full h-full object-cover rounded-t-lg md:rounded-none md:rounded-s-lg" src="{{ $portfolio->picture ? Storage::url($portfolio->picture) : asset('images/portfolio.jpg') }}" alt="{{ $portfolio->title }}">
                                 </div>
