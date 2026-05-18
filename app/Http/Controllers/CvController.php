@@ -15,11 +15,6 @@ class CvController extends Controller
 
         ['pdf' => $pdf, 'name' => $name] = $this->generateCV($user->id);
 
-        // return response()->streamDownload(function () use ($pdf) {
-        //     echo $pdf->output();
-        // }, $name, [
-        //     'Content-Type' => 'application/pdf',
-        // ]);
-        return $pdf->stream($name);
+        return $pdf->download($name);
     }
 }

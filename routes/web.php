@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\VisitController;
+use App\Livewire\AllNotifications;
 use App\Livewire\Competences\Index;
 use App\Livewire\Competences\Subtitle;
 use App\Livewire\Competences\Title;
@@ -27,7 +28,7 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::get('/reset-password/{token}', 'reset')->name('password.reset');
     Route::put('/password-update', 'updatePassword')->name('password.update');
 });
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/cover-picture', CoverPicture::class)->name('cover_picture');
     Route::get('/profile', ShowProfile::class)->name('profile');
@@ -39,8 +40,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/portfolios', PortfoliosIndex::class)->name('portfolios');
     Route::get('/companies', Company::class)->name('showCompanies');
     Route::get('/positions', Position::class)->name('showPositions');
+    Route::get('/notifications', AllNotifications::class)->name('notifications');
     Route::get('/setting', Setting::class)->name('setting');
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/cv', [CvController::class, 'download'])->name('cv.download');
 });
 Route::post('visits', VisitController::class)->name('visits.store');
-//Route::get('/cv', [CvController::class, 'download'])->name('cv.download');
