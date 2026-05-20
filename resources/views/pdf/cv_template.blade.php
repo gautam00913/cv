@@ -21,7 +21,7 @@
             font-size: 10pt;
             line-height: 1.3;
             color: #333;
-            margin: 10mm;
+            margin: 8mm;
             width: 190mm;
         }
 
@@ -73,7 +73,7 @@
             height: 80px;
             border-radius: 50%;
             overflow: hidden;
-            margin: 0 auto 12px;
+            margin: 0 auto 5px;
             background: #e0f2f1;
         }
 
@@ -243,6 +243,7 @@
                             <img src="<?= public_path('images/avatar.png') ?>" alt="Photo">
                         @endif
                     </div>
+                    <h3 style="text-align: center; margin-bottom: 8px;"><?= $profile->user->name ?></h3>
     
                     <!-- Contact -->
                     <div class="section">
@@ -251,13 +252,13 @@
                             @if($profile->user->email)
                                 <div class="contact-row">
                                     <span class="contact-label">Email:</span>
-                                    <?= $profile->user->email ?>
+                                    <a href="mailto:<?= $profile->user->email ?>" target="_blank" rel="noopener noreferrer" style="color: #333; text-decoration: none;"><?= $profile->user->email ?></a>
                                 </div>
                             @endif
                             @if($profile->user->phone)
                                 <div class="contact-row">
                                     <span class="contact-label">Tél:</span>
-                                    <?= $profile->user->phone ?>
+                                    <a href="tel:<?= $profile->user->phone ?>" target="_blank" rel="noopener noreferrer" style="color: #333; text-decoration: none;"><?= $profile->user->phone ?></a>
                                 </div>
                             @endif
                         </div>
