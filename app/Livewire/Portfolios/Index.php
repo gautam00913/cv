@@ -55,6 +55,19 @@ class Index extends Component implements HasForms
                     $data['description'] = $data['description'][$current] ?? '';
                     return $data;
                 })
+                ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
+                    $current = app()->getLocale();
+                    $inverse = $current === 'en' ? 'fr' : 'en';
+                    $data['title'] = [
+                        $current => $data['title'],
+                        $inverse => $this->translate($data['title']),
+                    ];
+                    $data['description'] = [
+                        $current => $data['description'],
+                        $inverse => $this->translate($data['description']),
+                    ];
+                    return $data;
+                })
                 ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
                     $current = app()->getLocale();
                     $inverse = $current === 'en' ? 'fr' : 'en';
