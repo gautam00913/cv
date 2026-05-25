@@ -21,7 +21,9 @@
                                         <p class="text-primaryDark italic"><?= $experience->jobTitle->name ?></p>
                                         <p class="flex items-center justify-center  text-secondary">
                                             <i class="fa-solid fa-calendar-days mr-2"></i>
-                                            <span><?= $experience->started_at->translatedFormat('F Y') ?> @if($experience->finished_at)- <?= $experience->finished_at->translatedFormat('F Y') ?>@elseif($experience->current)- {{ __('messages.to_today') }} @endif</span>
+                                            <span><?= $experience->started_at->translatedFormat('F Y') ?> 
+                                            @if($experience->current) {{ __('messages.to_today') }}
+                                            @elseif($experience->finished_at)- <?= $experience->finished_at->translatedFormat('F Y') ?> @endif</span>
                                         </p>
                                         <p>
                                             <hr class="border-2 w-1/4 mx-auto my-3">

@@ -162,7 +162,7 @@ return [
     // Livewire Components - Experiences
     'company' => 'Entreprise',
     'position' => 'Poste',
-    'currently_employed' => 'Actualmente en poste',
+    'currently_employed' => 'Actuellement en poste',
     'start_date' => 'Date de début',
     'end_date' => 'Date de fin',
     'description' => 'Description',

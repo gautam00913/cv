@@ -54,14 +54,15 @@ class Index extends Component implements HasForms
                             ->required(),
                         Checkbox::make('current')
                             ->label(__('messages.currently_employed'))
-                            ->reactive(),
+                            ->default(false)
+                            ->live(),
                         DatePicker::make('started_at')
                             ->label(__('messages.start_date'))
                             ->required(),
                         DatePicker::make('finished_at')
                             ->label(__('messages.end_date'))
-                            ->hidden(fn (callable $get) => (bool) $get('current'))
-                            ->required(fn (callable $get) => ! (bool) $get('current')),
+                            ->required()
+                            ->visible(fn (callable $get) => (bool) !$get('current')),
                         RichEditor::make('description')
                             ->label(__('messages.description'))
                             ->required(),
