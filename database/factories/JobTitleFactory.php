@@ -17,7 +17,10 @@ class JobTitleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->jobTitle()
+            'name' => [
+                'en' => $this->faker->jobTitle(),
+                'fr' => $this->faker->jobTitle()
+            ]
         ];
     }
 }

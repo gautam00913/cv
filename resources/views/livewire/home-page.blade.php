@@ -3,9 +3,9 @@
         <div class="relative rounded-b-2xl h-[300px] shadow-xl" style="background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url({{ Storage::url($user->profile->cover_picture) }});">
             <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
                 <div class="text-end space-x-3 mr-5">
-                    <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> Appeler</x-button>
-                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openContactModal')" target="openContactModal"><i class="fa-solid fa-envelope mr-1"></i> Message</x-button>
-                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })" target="openCVModal"><i class="fa-solid fa-download mr-1"></i> CV</x-button>
+                    <x-button cat="link" href="tel:{{ $user->phone }}" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> {{ __('messages.contact_me') }}</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openContactModal')" target="openContactModal"><i class="fa-solid fa-envelope mr-1"></i> {{ __('messages.message') }}</x-button>
+                    <x-button class="text-secondaryLight border-secondaryLight hover:border-none" @click="$dispatch('openCVModal', { id: {{ $user->id }} })" target="openCVModal"><i class="fa-solid fa-download mr-1"></i> {{ __('messages.download_cv') }}</x-button>
                 </div>
             </div>
             <div class="md:hidden absolute bottom-0 py-5 px-1 left-0 right-0 bg-primary/60 rounded-b-2xl">
@@ -33,7 +33,7 @@
                 @endif
             </div>
             <div class="text-center md:text-start">
-                <h1 class="text-lg md:text-2xl font-bold mb-2">Hello, moi c'est {{ $user->name }}</h1>
+                <h1 class="text-lg md:text-2xl font-bold mb-2">{{ __('messages.hello_i_am') }} {{ $user->name }}</h1>
                 <p class="italic font-semibold text-sm text-secondaryLight"><?= $user->profile->biography ?></p>
             </div>
         </div>
@@ -42,10 +42,10 @@
     <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-8 lg:mx-10">
         <div>
             <div class="flex items-center space-x-5 lg:space-x-10 border-b-2 pb-3 mb-4 overflow-x-scroll" style="scrollbar-width: none;">
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'competence']) wire:click="showComponent('competence')" target="showComponent('competence')">Compétences</x-button>
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'experience']) wire:click="showComponent('experience')" target="showComponent('experience')">Expérience</x-button>
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'education']) wire:click="showComponent('education')" target="showComponent('education')">éducation</x-button>
-                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'portfolio']) wire:click="showComponent('portfolio')" target="showComponent('portfolio')">Portfolio</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'competence']) wire:click="showComponent('competence')" target="showComponent('competence')">{{ __('messages.competences') }}</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'experience']) wire:click="showComponent('experience')" target="showComponent('experience')">{{ __('messages.experience') }}</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'education']) wire:click="showComponent('education')" target="showComponent('education')">{{ __('messages.education') }}</x-button>
+                <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'portfolio']) wire:click="showComponent('portfolio')" target="showComponent('portfolio')">{{ __('messages.portfolio') }}</x-button>
             </div>
             <div class="border-2 rounded-md p-3 md:p-5 border-secondaryLight">
                

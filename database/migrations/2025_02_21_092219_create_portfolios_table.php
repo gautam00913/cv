@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->mediumText('description');
+            $table->json('title');
+            $table->json('description');
             $table->string('picture');
             $table->string('link')->nullable();
             $table->foreignId('profile_id')->constrained()->cascadeOnDelete();

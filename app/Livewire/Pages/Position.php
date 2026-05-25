@@ -2,42 +2,45 @@
 
 namespace App\Livewire\Pages;
 
-use Livewire\Component;
 use App\Models\JobTitle;
-use Filament\Forms\Form;
-use Livewire\Attributes\On;
-use Livewire\WithPagination;
-use Filament\Forms\Contracts\HasForms;
+use App\Traits\TranslationTrait;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Position extends Component implements HasForms
 {
-    use InteractsWithForms, WithPagination;
-    public ?array $data = [];
-    public bool $editMode = false;
-    public ?JobTitle $jobTitle = null;
+    use InteractsWithForms, WithPagination, TranslationTrait;
 
+    public ?array $data = [];
+
+    public bool $editMode = false;
+
+    public ?JobTitle $jobTitle = null;
 
     public function mount()
     {
         $this->form->fill();
     }
 
-    public function form(Form $form) : Form 
+    public function form(Form $form): Form
     {
         return $form->schema([
-            TextInput::make('name')->label('Nom')->required(),
+            TextInput::make('name')->label(__('messages.name'))->required(),
         ])
-        ->statePath('data');
+            ->statePath('data');
     }
 
     public function editPosition(JobTitle $jobTitle)
     {
         $this->editMode = true;
         $this->jobTitle = $jobTitle;
-        $this->form->fill($jobTitle->toArray());
+        $this->form->fill(['name' => $jobTitle->name]);
         $this->dispatch('scroll-to-form', ['formId' => 'formulaire']);
     }
 
@@ -45,38 +48,48 @@ class Position extends Component implements HasForms
     public function deletePosition(int $id)
     {
         $jobTitle = JobTitle::find($id);
-        if($jobTitle) {
+        if ($jobTitle) {
             $jobTitle->delete();
             Notification::make()
-                ->title('Poste supprimée avec succès')
+                ->title(__('messages.position_deleted'))
                 ->success()
                 ->send();
-            
+
             return $this->dispatch('close-delete-modal');
         }
     }
 
     public function submit()
     {
-        if($this->editMode && $this->jobTitle) {
-            $done = $this->jobTitle->update($this->form->getState());
-            if($done)
+        $data = $this->form->getState();
+        $current = app()->getLocale();
+        $inverse = $current === 'en' ? 'fr' : 'en';
+        $data['name'] = [
+            $current => $data['name'],
+            $inverse => $this->translate($data['name']),
+        ];
+        
+        if ($this->editMode && $this->jobTitle) {
+            $done = $this->jobTitle->update($data);
+            if ($done) {
                 Notification::make()
-                    ->title('Poste modifiée avec succès')
+                    ->title(__('messages.position_modified'))
                     ->success()
                     ->send();
+            }
         } else {
-            $done = JobTitle::create($this->form->getState());
-            if($done)
+            $done = JobTitle::create($data);
+            if ($done) {
                 Notification::make()
-                    ->title('Poste ajoutée avec succès')
+                    ->title(__('messages.position_added'))
                     ->success()
                     ->send();
+            }
         }
         $this->form->fill();
         $this->reset();
     }
-    
+
     public function render()
     {
         return view('livewire.pages.position', [

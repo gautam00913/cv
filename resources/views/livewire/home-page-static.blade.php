@@ -2,9 +2,9 @@
     <div class="relative rounded-b-2xl h-[300px] shadow-xl" style="background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url({{ asset('images/dev.jpg') }});">
         <div class="hidden md:block absolute bottom-0 p-5 left-0 right-0 bg-primary/60 rounded-b-2xl">
             <div class="text-end space-x-3 mr-5">
-                <x-button cat="link" href="tel:+22994175300" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> Appeler</x-button>
-                <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-envelope"></i> Message</x-button>
-                <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-download"></i> CV</x-button>
+                <x-button cat="link" href="tel:+22994175300" class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-phone"></i> {{ __('messages.contact_me') }}</x-button>
+                <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-envelope"></i> {{ __('messages.message') }}</x-button>
+                <x-button class="text-secondaryLight border-secondaryLight hover:border-none"><i class="fa-solid fa-download"></i> {{ __('messages.download_cv') }}</x-button>
             </div>
         </div>
     </div>
@@ -13,25 +13,25 @@
             <img src="{{ asset('images/image_gautier.jpg') }}" class="rounded-full w-40 h-40 shadow-lg md:shadow-sm" />
         </div>
         <div class="text-center md:text-start">
-            <h1 class="text-lg md:text-2xl font-bold mb-2">Hello, moi c'est Gautier Seth DJOSSOU</h1>
-            <p class="italic font-semibold text-sm text-secondaryLight">Je suis Développeur web</p>
+            <h1 class="text-lg md:text-2xl font-bold mb-2">{{ __('messages.hello_i_am') }} Gautier Seth DJOSSOU</h1>
+            <p class="italic font-semibold text-sm text-secondaryLight">{{ __('messages.web_developer') }}</p>
         </div>
     </div>
 
     <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-0">
         <div x-data="{active: 'competence'}">
             <div class="flex items-center space-x-5 lg:space-x-10 border-b-2 pb-3 mb-4 overflow-x-scroll" style="scrollbar-width: none;">
-                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'competence'}" @click="active = 'competence'">Compétences</x-button>
-                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'experience'}" @click="active = 'experience'">Expérience</x-button>
-                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'education'}" @click="active = 'education'">éducation</x-button>
-                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'portfolio'}" @click="active = 'portfolio'">Portfolio</x-button>
+                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'competence'}" @click="active = 'competence'">{{ __('messages.competences') }}</x-button>
+                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'experience'}" @click="active = 'experience'">{{ __('messages.experience') }}</x-button>
+                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'education'}" @click="active = 'education'">{{ __('messages.education') }}</x-button>
+                <x-button class="uppercase hover:translate-y-1" ::class="{'bg-primary text-white' : active == 'portfolio'}" @click="active = 'portfolio'">{{ __('messages.portfolio') }}</x-button>
             </div>
             <div x-show="active == 'competence'" class="border-2 rounded-md p-3 md:p-5 border-secondaryLight">
                 <article>
                     <x-section-title title="En programmation web"></x-section-title>
                      <div class="grid md:grid-cols-2 gap-8 mt-4">
                          <x-card>
-                             <h3 class="text-lg font-bold underline mb-3">Languages</h3>
+                             <h3 class="text-lg font-bold underline mb-3">{{ __('messages.languages') }}</h3>
                              <p>
                                  <ul class="space-y-3">
                                      <li><x-tag>HTML 5</x-tag></li>
@@ -43,7 +43,7 @@
                              </p>
                          </x-card>
                          <x-card>
-                             <h3 class="text-lg font-bold underline mb-3">Frameworks & Librairies & CMS</h3>
+                             <h3 class="text-lg font-bold underline mb-3">{{ __('messages.frameworks_librairies_cms') }}</h3>
                              <p>
                                  <ul class="space-y-3">
                                      <li><x-tag>Bootstrap</x-tag> </li>

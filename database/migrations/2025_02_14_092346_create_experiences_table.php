@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->json('description');
             $table->boolean('current')->default(false);
             $table->date('started_at');
             $table->date('finished_at')->nullable();

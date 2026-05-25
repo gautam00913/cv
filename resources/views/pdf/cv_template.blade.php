@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <title>CV - <?= $profile->user->name ?></title>
@@ -257,7 +257,7 @@
                             @endif
                             @if($profile->user->phone)
                                 <div class="contact-row">
-                                    <span class="contact-label">Tél:</span>
+                                    <span class="contact-label">{{__('messages.cv_phone')}}:</span>
                                     <a href="tel:<?= $profile->user->phone ?>" target="_blank" rel="noopener noreferrer" style="color: #333; text-decoration: none;"><?= $profile->user->phone ?></a>
                                 </div>
                             @endif
@@ -267,7 +267,7 @@
                     <!-- Skills -->
                     @if($competences_count > 0)
                         <div class="section">
-                            <h3 class="section-title" style="font-size: 10pt;">Compétences</h3>
+                            <h3 class="section-title" style="font-size: 10pt;">{{ __('messages.competences') }}</h3>
                             @php
                                 $competence_index = 0;
                             @endphp
@@ -297,7 +297,7 @@
                     <!-- Profile -->
                     @if($profile->biography)
                         <div class="section">
-                            <h3 class="section-title">Profil</h3>
+                            <h3 class="section-title">{{ __('messages.profile') }}</h3>
                             <p class="profile-text"><?= Str::words($profile->biography, 50) ?></p>
                         </div>
                     @endif
@@ -305,15 +305,15 @@
                     <!-- Experience -->
                     @if($profile->experiences->count() > 0)
                         <div class="section">
-                            <h3 class="section-title">Expérience</h3>
+                            <h3 class="section-title">{{ __('messages.experiences') }}</h3>
                             @foreach($profile->experiences->sortByDesc('started_at') as $experience)
                                 @if ($loop->index < 6)
                                     <div class="experience-item">
                                         <h4><?= $experience->jobTitle->name ?></h4>
                                         <a class="company" @if($experience->company->website)href="<?= $experience->company->website ?>" target="_blank" rel="noopener noreferrer" @endif><?= $experience->company->name ?></a>
                                         <div class="date">
-                                            <?= $experience->started_at->format('m/Y') ?> -
-                                            @if($experience->current) Aujourd'hui @else <?= $experience->finished_at->format('m/Y') ?> @endif
+                                            <?= $experience->started_at->format('m/Y') ?> 
+                                            @if($experience->current) {{ __('messages.to_today') }} @elseif($experience->finished_at) - <?= $experience->finished_at->format('m/Y') ?> @endif
                                         </div>
                                         @if($experience->description)
                                             <p class="description"><?= Str::words($experience->description, 100) ?></p>
@@ -327,7 +327,7 @@
                     <!-- Education -->
                     @if($profile->educations->count() > 0)
                         <div class="section">
-                            <h3 class="section-title">Formation</h3>
+                            <h3 class="section-title">{{ __('messages.education') }}</h3>
                             @foreach($profile->educations->sortByDesc('year') as $education)
                                 @if ($loop->index < 4)
                                     <div class="education-item">
@@ -354,7 +354,7 @@
                         <td class="sidebar">
                         <!-- Skills -->
                             <div class="section">
-                                <h3 class="section-title" style="font-size: 10pt;">Compétences (suite)</h3>
+                                <h3 class="section-title" style="font-size: 10pt;">{{ __('messages.skills_continued') }}</h3>
                                 @php
                                     $competence_index = 0;
                                 @endphp
@@ -384,7 +384,7 @@
                         <!-- Portfolio -->
                         @if($portfolios_count > 0)
                             <div class="section">
-                                <h3 class="section-title">Portfolio</h3>
+                                <h3 class="section-title">{{ __('messages.portfolio') }}</h3>
                                 @foreach($profile->portfolios as $key => $portfolio)
                                     @if ($key < 9)
                                         <table class="portfolio-item" cellpadding="0" cellspacing="0">
@@ -420,7 +420,11 @@
 
     <!-- Footer -->
     <div class="footer">
-        CV généré le <?= now()->format('d/m/Y') ?> sur <a href="<?= route('home') ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">mon portfolio en ligne</a>.
+        @if(app()->getLocale() == 'fr')
+            CV généré le <?= now()->format('d/m/Y') ?> sur <a href="<?= route('home') ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">mon portfolio en ligne</a>.
+        @else
+            CV generated on <?= now()->format('d/m/Y') ?> on <a href="<?= route('home') ?>" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">my online portfolio</a>.
+        @endif
     </div>
 </body>
 </html>

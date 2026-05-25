@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->id();
-            $table->string('grade');
-            $table->mediumText('description');
+            $table->json('grade');
+            $table->json('description');
             $table->year('year');
             $table->foreignId('profile_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

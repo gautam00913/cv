@@ -12,6 +12,8 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "spatie/laravel-translatable": "^6.11",
+        "stichoza/google-translate-php": "^5.3",
         "tintnaingwin/email-checker": "^1.0"
     },
     "require-dev": {

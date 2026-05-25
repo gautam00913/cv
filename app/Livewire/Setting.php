@@ -3,24 +3,29 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Livewire\Component;
-use Filament\Forms\Form;
-use Illuminate\Support\Facades\Hash;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Hash;
+use Livewire\Component;
 
 class Setting extends Component implements HasForms
 {
     use InteractsWithForms;
 
     public User $user;
+
     public string $email;
-    public string $current_password = "*********";
+
+    public string $current_password = '*********';
+
     public bool $change_password = false;
+
     public string $password;
+
     public string $password_confirmation;
 
     public function mount()
@@ -29,47 +34,47 @@ class Setting extends Component implements HasForms
         $this->email = $this->user->email;
     }
 
-    public function form(Form $form) : Form
+    public function form(Form $form): Form
     {
         return $form->schema([
             TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->unique(),
+                ->email()
+                ->required()
+                ->unique(),
             TextInput::make('current_password')
-                    ->label("Votre mot de passe")
-                    ->disabled(),
+                ->label(__('messages.your_password'))
+                ->disabled(),
             Checkbox::make('change_password')
-                    ->label("Je veux changer mon mot de passe")
-                    ->live(),
+                ->label(__('messages.want_change_password'))
+                ->live(),
             TextInput::make('password')
-                    ->label("Nouveau mot de passe")
-                    ->password()
-                    ->required()
-                    ->confirmed()
-                    ->revealable()
-                    ->hidden(fn ($get) => !$get('change_password')),
+                ->label(__('messages.new_password'))
+                ->password()
+                ->required()
+                ->confirmed()
+                ->revealable()
+                ->hidden(fn ($get) => ! $get('change_password')),
             TextInput::make('password_confirmation')
-                    ->label("Confirmer le mot de passe")
-                    ->password()
-                    ->required()
-                    ->revealable()
-                    ->hidden(fn ($get) => !$get('change_password')),
+                ->label(__('messages.confirm_password_label'))
+                ->password()
+                ->required()
+                ->revealable()
+                ->hidden(fn ($get) => ! $get('change_password')),
         ]);
     }
 
     public function submit()
     {
         $data = $this->form->getState();
-        if($data['change_password'])
+        if ($data['change_password']) {
             $data['password'] = Hash::make($data['password']);
+        }
         $done = $this->user->update($data);
-        if($done)
-        {
+        if ($done) {
             Notification::make()
-                        ->title("Informations mise à jour avec succès")
-                        ->success()
-                        ->send();
+                ->title(__('messages.information_updated'))
+                ->success()
+                ->send();
             $this->reset(['change_password', 'password', 'password_confirmation']);
         }
     }

@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Competences;
 
-use Livewire\Component;
 use App\Models\CompetenceSubTitle;
-use Filament\Forms\Contracts\HasForms;
+use App\Traits\TranslationTrait;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
+use Livewire\Component;
 
 class Subtitle extends Component implements HasForms
 {
-    use InteractsWithForms;
+    use InteractsWithForms, TranslationTrait;
 
     public CompetenceSubTitle $subtitle;
     public string $name;
@@ -30,10 +31,17 @@ class Subtitle extends Component implements HasForms
     }
 
     public function submit(){
-        $updated = $this->subtitle->update($this->form->getState());
+        $data = $this->form->getState();
+        $current = app()->getLocale();
+        $inverse = $current === 'en' ? 'fr' : 'en';
+        $data['name'] = [
+            $current => $data['name'],
+            $inverse => $this->translate($data['name']),
+        ];
+        $updated = $this->subtitle->update($data);
         if($updated){
             Notification::make()
-                        ->title("Sous-catégorie de compétence mise à jour avec succès")
+                        ->title(__('messages.subtitle_updated'))
                         ->success()
                         ->send();
             return $this->redirect(route('competences', absolute: false), true);

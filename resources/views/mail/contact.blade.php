@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nouveau message de contact</title>
+    <title>{{ __('messages.new_contact_message') }}</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -79,34 +79,34 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nouveau message de contact</h1>
+            <h1>{{ __('messages.new_contact_message') }}</h1>
         </div>
         <div class="content">
             <div class="info-row">
-                <div class="info-label">Nom & Prénom</div>
+                <div class="info-label">{{ __('messages.full_name') }}</div>
                 <div class="info-value">{{ $data['full_name'] }}</div>
             </div>
             <div class="info-row">
-                <div class="info-label">Email</div>
+                <div class="info-label">{{ __('messages.email') }}</div>
                 <div class="info-value">{{ $data['email'] }}</div>
             </div>
             @if(isset($data['phone']) && $data['phone'])
             <div class="info-row">
-                <div class="info-label">Téléphone</div>
+                <div class="info-label">{{ __('messages.phone') }}</div>
                 <div class="info-value">{{ $data['phone'] }}</div>
             </div>
             @endif
             <div class="info-row">
-                <div class="info-label">Objet</div>
+                <div class="info-label">{{ __('messages.subject') }}</div>
                 <div class="info-value">{{ $data['subject'] }}</div>
             </div>
             <div class="message-box">
-                <div class="message-label">Message</div>
+                <div class="message-label">{{ __('messages.message') }}</div>
                 <div class="message-content">{{ $data['message'] }}</div>
             </div>
         </div>
         <div class="footer">
-            <p>Ce message a été envoyé depuis votre <a href="{{ route('home') }}" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">portfolio en ligne</a>.</p>
+            <p>{{ __('messages.message_from_online_portfolio') }} <a href="{{ route('home') }}" style="text-decoration: underline; color: #009688;" target="_blank" rel="noopener noreferrer">{{ route('home') }}</a>.</p>
         </div>
     </div>
 </body>

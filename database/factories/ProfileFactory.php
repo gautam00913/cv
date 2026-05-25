@@ -18,7 +18,10 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'biography' => $this->faker->paragraphs(rand(2, 4), true),
+            'biography' => [
+                'en' => $this->faker->paragraphs(rand(2, 4), true),
+                'fr' => $this->faker->paragraphs(rand(2, 4), true)
+            ],
             'picture' => $this->faker->imageUrl(),
             'cover_picture' => $this->faker->image(),
             'user_id' => User::factory()

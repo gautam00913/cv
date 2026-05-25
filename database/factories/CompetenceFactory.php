@@ -17,9 +17,8 @@ class CompetenceFactory extends Factory
     public function definition(): array
     {
         return [
-            'tag' => $this->faker->sentence(),
+            'tag' => $this->faker->words(rand(1, 3), true),
             'other_competence' => $this->faker->boolean(80),
-            'tag' => $this->faker->sentence(),
         ];
     }
 }

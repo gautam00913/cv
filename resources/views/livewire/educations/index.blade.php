@@ -1,7 +1,7 @@
 <div class="lg:space-x-4 flex flex-col lg:flex-row lg:items-start">
     <div class="bg-white lg:w-3/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
         <h1 class="font-semibold mb-4 text-xl flex justify-between items-center">
-            <span>Educations</span>
+            <span>{{ __('messages.educations') }}</span>
             <a href="#formulaire" class="lg:hidden">+</a>
         </h1>
         <div class="space-y-4">
@@ -13,7 +13,7 @@
                             <div class="mb-3">
                                 <?= nl2br($education->description) ?>
                             </div>
-                            <p><b>Année :</b> {{ $education->year }}</p>
+                            <p><b>{{ __('messages.year') }} :</b> {{ $education->year }}</p>
                         </div>
                         <div class="flex">
                             <span wire:click="edit({{ $education->id }})" class="bg-white shadow px-2 py-1 rounded-full hover:bg-primaryDark hover:text-white text-sm cursor-pointer ml-4 text-gray-500"><i class="fa-solid fa-pen"></i></span>
@@ -31,11 +31,11 @@
         </div>
     </div>
     <div class="bg-white lg:w-2/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
-        <h2 class="font-semibold mb-4 text-xl">Formulaire</h2>
+        <h2 class="font-semibold mb-4 text-xl">{{ __('messages.form') }}</h2>
         <form wire:submit="submit" id="formulaire">
             {{ $this->form }}
             <div class="mt-5">
-                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>
+                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">{{ __('messages.save') }}</x-button>
             </div>
         </form>
     </div>

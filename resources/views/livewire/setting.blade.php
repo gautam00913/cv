@@ -2,7 +2,7 @@
     <form wire:submit="submit">
         {{ $this->form }}
         <div class="mt-5">
-            <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>
+            <x-button type="submit" class="w-full md:w-1/2 mx-auto block">{{ __('messages.save') }}</x-button>
         </div>
     </form>
 </div>

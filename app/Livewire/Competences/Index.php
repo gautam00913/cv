@@ -2,25 +2,27 @@
 
 namespace App\Livewire\Competences;
 
-use Livewire\Component;
-use Filament\Forms\Form;
 use App\Models\Competence;
+use App\Models\CompetenceSubTitle;
+use App\Models\CompetenceTitle;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
-use App\Models\CompetenceTitle;
-use Livewire\Attributes\Computed;
-use App\Models\CompetenceSubTitle;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Forms\Concerns\InteractsWithForms;
+use Livewire\Component;
 
 class Index extends Component implements HasForms
 {
     use InteractsWithForms;
+
     public Competence $competence;
+
     public bool $editMode = false;
 
     #[Url(as: 'cat')]
@@ -32,39 +34,41 @@ class Index extends Component implements HasForms
     public function competences()
     {
         return Competence::with(['competenceTitle', 'competenceSubTitle'])
-                        ->where('profile_id', auth()->user()->profile->id)
-                        ->get()
-                        ->groupBy(['competence_title_id']);
+            ->where('profile_id', auth()->user()->profile->id)
+            ->get()
+            ->groupBy(['competence_title_id']);
     }
 
     public function mount()
     {
-        $this->competence = new Competence();
+        $this->competence = new Competence;
         $this->form->fill();
     }
 
-    public function form(Form $form) : Form
+    public function form(Form $form): Form
     {
         return $form->schema([
             Select::make('competence_title_id')
-            ->relationship('competenceTitle', 'name')
-            ->label("Compétence en:")
-            ->required(),
+                ->relationship('competenceTitle', 'name')
+                ->label(__('messages.competence_in'))
+                ->required(),
             Select::make('competence_sub_title_id')
-                    ->relationship('competenceSubTitle', 'name')
-                    ->label("Sous catégorie"),
-            TextInput::make('tag')->required()->placeholder("PHP"),
-            Toggle::make('other_competence')->label("Il s'agit d'une autre compétence")
+                ->relationship('competenceSubTitle', 'name')
+                ->label(__('messages.sub_category')),
+            TextInput::make('tag')->required()->placeholder('PHP'),
+            Toggle::make('other_competence')->label(__('messages.other_competence')),
         ])
-        ->statePath('data')
-        ->model($this->competence);
+            ->statePath('data')
+            ->model($this->competence);
     }
 
-    public function showCategory($category){
+    public function showCategory($category)
+    {
         $this->index = $category;
     }
 
-    public function editCompetence($id){
+    public function editCompetence($id)
+    {
         $competence = Competence::findOrFail($id);
         $this->competence = $competence;
         $this->editMode = true;
@@ -74,43 +78,35 @@ class Index extends Component implements HasForms
     #[On('delete-competence')]
     public function delete(string $what, int $id)
     {
-        if($what == 'title')
-        {
+        if ($what == 'title') {
             $title = CompetenceTitle::find($id);
             $done = $title->delete();
-            if($done)
-            {
+            if ($done) {
                 $this->dispatch('close-delete-modal');
                 Notification::make()
-                            ->title("Catégorie de compétence suprimée avec succès")
-                            ->success()
-                            ->send();
+                    ->title(__('messages.competence_category_deleted'))
+                    ->success()
+                    ->send();
             }
-        }
-        elseif($what == 'subtitle')
-        {
+        } elseif ($what == 'subtitle') {
             $subtitle = CompetenceSubTitle::find($id);
             $done = $subtitle->delete();
-            if($done)
-            {
+            if ($done) {
                 $this->dispatch('close-delete-modal');
                 Notification::make()
-                            ->title("Sous catégorie de compétence suprimée avec succès")
-                            ->success()
-                            ->send();
+                    ->title(__('messages.competence_sub_category_deleted'))
+                    ->success()
+                    ->send();
             }
-        }
-        elseif($what == 'competence')
-        {
+        } elseif ($what == 'competence') {
             $competence = Competence::find($id);
             $done = $competence->delete();
-            if($done)
-            {
+            if ($done) {
                 $this->dispatch('close-delete-modal');
                 Notification::make()
-                            ->title("Compétence suprimée avec succès")
-                            ->success()
-                            ->send();
+                    ->title(__('messages.competence_deleted'))
+                    ->success()
+                    ->send();
             }
         }
         $this->refresh();
@@ -118,35 +114,36 @@ class Index extends Component implements HasForms
 
     public function submit()
     {
-        if($this->editMode)
-        {
+        if ($this->editMode) {
             $done = $this->competence->update($this->form->getState());
-            if($done){
+            if ($done) {
                 $this->editMode = false;
                 Notification::make()
-                            ->title("Mise à jour éffectuée avec succès")
-                            ->success()
-                            ->send();
+                    ->title(__('messages.competence_updated'))
+                    ->success()
+                    ->send();
             }
-        }else{
+        } else {
             $done = auth()->user()->profile->competences()->create($this->form->getState());
-            if($done)
+            if ($done) {
                 Notification::make()
-                            ->title("Compétence ajoutée avec succès")
-                            ->success()
-                            ->send();
+                    ->title(__('messages.competence_added'))
+                    ->success()
+                    ->send();
+            }
         }
-        
+
         $this->form->fill();
         $this->refresh();
     }
 
     public function render()
     {
-        if($this->index && $this->competences->has($this->index))
+        if ($this->index && $this->competences->has($this->index)) {
             $group_competences = $this->competences->get($this->index);
-        else
+        } else {
             $group_competences = $this->competences->first();
+        }
 
         return view('livewire.competences.index', [
             'group_competences' => $group_competences,

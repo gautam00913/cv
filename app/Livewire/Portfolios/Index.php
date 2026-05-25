@@ -3,6 +3,7 @@
 namespace App\Livewire\Portfolios;
 
 use App\Models\Profile;
+use App\Traits\TranslationTrait;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
@@ -15,14 +16,16 @@ use Livewire\Component;
 
 class Index extends Component implements HasForms
 {
-    use InteractsWithForms;
+    use InteractsWithForms, TranslationTrait;
+
     public ?array $data = [];
+
     public Profile $profile;
 
     public function mount()
     {
         $this->profile = auth()->user()->profile;
-        $this->form->fill(['portfolios' => $this->profile->portfolios->toArray()]);
+        $this->form->fill(['portfolios' => []]);
     }
 
     public function form(Form $form): Form
@@ -32,23 +35,42 @@ class Index extends Component implements HasForms
                 ->relationship('portfolios')
                 ->schema([
                     TextInput::make('title')
-                        ->label("Titre")
+                        ->label(__('messages.title'))
                         ->required(),
                     Textarea::make('description')
                         ->required()
                         ->maxLength(500),
                     FileUpload::make('picture')
-                        ->label("Capture d'écran")
+                        ->label(__('messages.screenshot'))
                         ->image()
                         ->required()
                         ->directory('images'),
                     TextInput::make('link')
-                        ->label('Lien')
-                        ->url()
+                        ->label(__('messages.link'))
+                        ->url(),
                 ])
+                ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                    $current = app()->getLocale();
+                    $data['title'] = $data['title'][$current] ?? '';
+                    $data['description'] = $data['description'][$current] ?? '';
+                    return $data;
+                })
+                ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
+                    $current = app()->getLocale();
+                    $inverse = $current === 'en' ? 'fr' : 'en';
+                    $data['title'] = [
+                        $current => $data['title'],
+                        $inverse => $this->translate($data['title']),
+                    ];
+                    $data['description'] = [
+                        $current => $data['description'],
+                        $inverse => $this->translate($data['description']),
+                    ];
+                    return $data;
+                })
                 ->collapsible()
-                ->addActionLabel("Ajouter un autre élément")
-                ->label(""),
+                ->addActionLabel(__('messages.add_another_item'))
+                ->label(''),
         ])
             ->statePath('data')
             ->model($this->profile);
@@ -57,11 +79,12 @@ class Index extends Component implements HasForms
     public function submit()
     {
         $updated = $this->profile->update($this->form->getState());
-        if ($updated)
+        if ($updated) {
             Notification::make()
-                ->title("Modification effectuée avec succès")
+                ->title(__('messages.modification_done'))
                 ->success()
                 ->send();
+        }
     }
 
     public function render()

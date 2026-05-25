@@ -25,25 +25,6 @@ class ContactModal extends Component
 
     public string $message = '';
 
-    protected function rules(): array
-    {
-        return [
-            'full_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-        ];
-    }
-
-    protected $messages = [
-        'full_name.required' => 'Le nom et prénom est obligatoire.',
-        'email.required' => 'L\'email est obligatoire.',
-        'email.email' => 'L\'email doit être valide.',
-        'subject.required' => 'L\'objet est obligatoire.',
-        'message.required' => 'Le message est obligatoire.',
-    ];
-
     public function render()
     {
         return view('livewire.contact.contact-modal');
@@ -65,7 +46,19 @@ class ContactModal extends Component
 
     public function submit(): void
     {
-        $this->validate();
+        $this->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+            ], [
+            'full_name.required' => __('messages.full_name_required'),
+            'email.required' => __('messages.email_required'),
+            'email.email' => __('messages.email_valid'),
+            'subject.required' => __('messages.subject_required'),
+            'message.required' => __('messages.message_required'),
+        ]);
 
         $data = [
             'full_name' => $this->full_name,
@@ -74,9 +67,10 @@ class ContactModal extends Component
             'subject' => $this->subject,
             'message' => $this->message,
         ];
-        //verification de la validité de l'adresse email de l'utilisateur
-        if(!EmailChecker::check($this->email)){
-            $this->addError('email', 'L\'adresse email est invalide.');
+        // verification de la validité de l'adresse email de l'utilisateur
+        if (! EmailChecker::check($this->email)) {
+            $this->addError('email', __('messages.email_invalid'));
+
             return;
         }
 

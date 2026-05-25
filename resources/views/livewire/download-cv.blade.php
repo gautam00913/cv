@@ -26,19 +26,19 @@
                 @click.away="$wire.closeModal()"
             >
                 <h3 class="text-lg font-semibold leading-6 text-white bg-primary p-3" id="modal-title">
-                    Télécharger le CV
+                    {{ __('messages.download_cv') }}
                 </h3>
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <form wire:submit.prevent="download" class="space-y-5">
 
                         <div>
-                            <label for="email" class="block text-sm font-bold text-primary">Renseignez votre email pour confirmer votre identité <span class="text-red-600">*</span></label>
+                            <label for="email" class="block text-sm font-bold text-primary">{{ __('messages.enter_email_confirm_identity') }} <span class="text-red-600">{{ __('messages.required') }}</span></label>
                             <input
                                 type="email"
                                 id="email"
                                 wire:model="email"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm px-2 py-3 border"
-                                placeholder="votre@email.com"
+                                placeholder="{{ __('messages.placeholder_email') }}"
                             >
                             @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
@@ -50,14 +50,14 @@
                         target="download"
                         class="w-full sm:ml-3 sm:w-auto bg-primary text-white hover:bg-primary/90"
                     >
-                        Télécharger
+                        {{ __('messages.download') }}
                     </x-button>
                     <x-button
                         wire:click="closeModal"
                         target="closeModal"
                         class="mt-3 w-full sm:mt-0 sm:w-auto bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-primary"
                     >
-                        Annuler
+                        {{ __('messages.cancel') }}
                     </x-button>
                 </div>
             </div>

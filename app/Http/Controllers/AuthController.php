@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
@@ -44,7 +42,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Identifiant ou mot de passe incorrect !',
+            'email' => __('auth.failed'),
         ])->onlyInput('email');
     }
     
@@ -56,7 +54,7 @@ class AuthController extends Controller
        $user = User::where('email', $credentials['email'])->first();
         if(!$user)
             return back()->withErrors([
-                'email' => 'adresse email introuvable !',
+                'email' => __('auth.email'),
             ])->onlyInput('email');
 
         // $token = Str::random(100);
@@ -69,7 +67,7 @@ class AuthController extends Controller
 
         Password::sendResetLink(['email' => $user->email]);
 
-        return back()->with('success', "Un lien de réinitialisation a été envoyé à votre adresse email");
+        return back()->with('success', __('auth.reset_succed'));
     }
     
     

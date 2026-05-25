@@ -18,8 +18,14 @@ class PortfolioFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(rand(2, 5)),
-            'description' => $this->faker->paragraph(rand(2, 5)),
+            'title' => [
+                'en' => $this->faker->sentence(rand(2, 5)),
+                'fr' => $this->faker->sentence(rand(2, 5))
+            ],
+            'description' => [
+                'en' => $this->faker->paragraph(rand(2, 5)),
+                'fr' => $this->faker->paragraph(rand(2, 5))
+            ],
             'picture' => $this->faker->imageUrl(),
             'link' => $this->faker->url(),
             'profile_id' => Profile::factory(),

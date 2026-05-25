@@ -26,7 +26,7 @@
                 @click.away="$wire.closeModal()"
             >
                 <h3 class="text-lg font-semibold leading-6 text-white bg-primary p-3" id="modal-title">
-                    Me contacter
+                    {{ __('messages.contact_me') }}
                 </h3>
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     @if ($isSuccess)
@@ -48,9 +48,9 @@
                                 </div>
                                 <!-- Content -->
                                 <div>
-                                    <h3 class="font-semibold text-teal-700">Message envoyé</h3>
+                                    <h3 class="font-semibold text-teal-700">{{ __('messages.message_sent') }}</h3>
                                     <p class="text-sm mt-1 text-teal-600">
-                                        Votre message a été envoyé avec succès. Je vous répondrai sous peu.
+                                        {{ __('messages.your_message_sent_successfully') }}
                                     </p>
                                 </div>
                             </div>
@@ -58,61 +58,61 @@
                     @else
                         <form wire:submit.prevent="submit" class="space-y-5">
                             <div>
-                                <label for="full_name" class="block text-sm font-bold text-primary">Nom & Prénom <span class="text-red-600">*</span></label>
+                                <label for="full_name" class="block text-sm font-bold text-primary">{{ __('messages.full_name') }} <span class="text-red-600">{{ __('messages.required') }}</span></label>
                                 <input
                                     type="text"
                                     id="full_name"
                                     wire:model="full_name"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm px-2 py-3 border"
-                                    placeholder="Votre nom et prénom"
+                                    placeholder="{{ __('messages.placeholder_full_name') }}"
                                 >
                                 @error('full_name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
                             <div>
-                                <label for="email" class="block text-sm font-bold text-primary">Email <span class="text-red-600">*</span></label>
+                                <label for="email" class="block text-sm font-bold text-primary">{{ __('messages.email') }} <span class="text-red-600">{{ __('messages.required') }}</span></label>
                                 <input
                                     type="email"
                                     id="email"
                                     wire:model="email"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm px-2 py-3 border"
-                                    placeholder="votre@email.com"
+                                    placeholder="{{ __('messages.placeholder_email') }}"
                                 >
                                 @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
                             <div>
-                                <label for="phone" class="block text-sm font-bold text-primary">Téléphone (optionnel)</label>
+                                <label for="phone" class="block text-sm font-bold text-primary">{{ __('messages.phone_optional') }}</label>
                                 <input
                                     type="tel"
                                     id="phone"
                                     wire:model="phone"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm px-2 py-3 border"
-                                    placeholder="Votre numéro de téléphone"
+                                    placeholder="{{ __('messages.placeholder_phone') }}"
                                 >
                                 @error('phone') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
                             <div>
-                                <label for="subject" class="block text-sm font-bold text-primary">Objet de contact <span class="text-red-600">*</span></label>
+                                <label for="subject" class="block text-sm font-bold text-primary">{{ __('messages.subject_contact') }} <span class="text-red-600">{{ __('messages.required') }}</span></label>
                                 <input
                                     type="text"
                                     id="subject"
                                     wire:model="subject"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm px-2 py-3 border"
-                                    placeholder="L'objet de votre message"
+                                    placeholder="{{ __('messages.placeholder_subject') }}"
                                 >
                                 @error('subject') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
                             <div>
-                                <label for="message" class="block text-sm font-bold text-primary">Message <span class="text-red-600">*</span></label>
+                                <label for="message" class="block text-sm font-bold text-primary">{{ __('messages.message') }} <span class="text-red-600">{{ __('messages.required') }}</span></label>
                                 <textarea
                                     id="message"
                                     wire:model="message"
                                     rows="5"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm px-2 py-3 border"
-                                    placeholder="Votre message..."
+                                    placeholder="{{ __('messages.placeholder_message') }}"
                                 ></textarea>
                                 @error('message') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
@@ -126,7 +126,7 @@
                             target="closeModal"
                             class="w-full sm:ml-3 sm:w-auto bg-primary text-white hover:bg-primary/90"
                         >
-                            Fermer
+                            {{ __('messages.close') }}
                         </x-button>
                     @else
                         <x-button
@@ -134,14 +134,14 @@
                             target="submit"
                             class="w-full sm:ml-3 sm:w-auto bg-primary text-white hover:bg-primary/90"
                         >
-                            Envoyer
+                            {{ __('messages.send') }}
                         </x-button>
                         <x-button
                             wire:click="closeModal"
                             target="closeModal"
                             class="mt-3 w-full sm:mt-0 sm:w-auto bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-primary"
                         >
-                            Annuler
+                            {{ __('messages.cancel') }}
                         </x-button>
                     @endif
                 </div>

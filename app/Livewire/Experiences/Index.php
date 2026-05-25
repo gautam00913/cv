@@ -3,29 +3,32 @@
 namespace App\Livewire\Experiences;
 
 use App\Models\Profile;
-use Filament\Forms\Components\Hidden;
-use Livewire\Component;
-use Filament\Forms\Form;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Contracts\HasForms;
+use App\Traits\TranslationTrait;
 use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Repeater;
-use Filament\Notifications\Notification;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Livewire\Component;
 
 class Index extends Component implements HasForms
 {
-    use InteractsWithForms;
+    use InteractsWithForms, TranslationTrait;
+
     public ?array $data = [];
+
     public Profile $profile;
 
     public function mount()
     {
         $this->profile = auth()->user()->load('profile.experiences')->profile;
         $this->form->fill([
-            'experiences' => $this->profile->experiences->toArray(),
+            'experiences' => [],
         ]);
     }
 
@@ -38,32 +41,45 @@ class Index extends Component implements HasForms
                     ->schema([
                         Hidden::make('sort'),
                         Select::make('company_id')
-                            ->label("Entreprise")
+                            ->label(__('messages.company'))
                             ->relationship('company', 'name')
                             ->preload()
                             ->searchable()
                             ->required(),
                         Select::make('job_title_id')
-                            ->label("Poste")
+                            ->label(__('messages.position'))
                             ->relationship('jobTitle', 'name')
                             ->preload()
                             ->searchable()
                             ->required(),
                         Checkbox::make('current')
-                            ->label('Actuellement en poste')
+                            ->label(__('messages.currently_employed'))
                             ->reactive(),
                         DatePicker::make('started_at')
-                            ->label('Date de début')
+                            ->label(__('messages.start_date'))
                             ->required(),
                         DatePicker::make('finished_at')
-                            ->label('Date de fin')
-                            ->hidden(fn(callable $get) => (bool)$get('current'))
-                            ->required(fn(callable $get) => !(bool)$get('current')),
+                            ->label(__('messages.end_date'))
+                            ->hidden(fn (callable $get) => (bool) $get('current'))
+                            ->required(fn (callable $get) => ! (bool) $get('current')),
                         RichEditor::make('description')
-                            ->label('Description')
+                            ->label(__('messages.description'))
                             ->required(),
                     ])
-                    ->addActionLabel('Ajouter une expérience')
+                    ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                        $data['description'] = $data['description'][app()->getLocale()] ?? '';
+                        return $data;
+                    })
+                    ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
+                        $current = app()->getLocale();
+                        $inverse = $current === 'en' ? 'fr' : 'en';
+                        $data['description'] = [
+                            $current => $data['description'],
+                            $inverse => $this->translate($data['description']),
+                        ];
+                        return $data;
+                    })
+                    ->addActionLabel(__('messages.add_experience'))
                     ->orderColumn('sort')
                     ->reorderableWithButtons()
                     ->collapsed()
@@ -77,13 +93,14 @@ class Index extends Component implements HasForms
     public function submit()
     {
         $done = $this->profile->update($this->form->getState());
-        if ($done)
+        if ($done) {
             Notification::make()
-                ->title("Expériences mises à jour avec succès.")
+                ->title(__('messages.experiences_updated'))
                 ->success()
                 ->send();
+        }
     }
-    
+
     public function render()
     {
         return view('livewire.experiences.index');

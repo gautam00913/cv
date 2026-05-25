@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Competences;
 
-use Livewire\Component;
 use App\Models\CompetenceTitle;
+use App\Traits\TranslationTrait;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Livewire\Component;
 
 class Title extends Component implements HasForms
 {
-    use InteractsWithForms;
+    use InteractsWithForms, TranslationTrait;
 
     public CompetenceTitle $title;
     public string $name;
@@ -29,10 +30,17 @@ class Title extends Component implements HasForms
     }
 
     public function submit(){
-        $updated = $this->title->update($this->form->getState());
+        $data = $this->form->getState();
+        $current = app()->getLocale();
+        $inverse = $current === 'en' ? 'fr' : 'en';
+        $data['name'] = [
+            $current => $data['name'],
+            $inverse => $this->translate($data['name']),
+        ];
+        $updated = $this->title->update($data);
         if($updated){
             Notification::make()
-                        ->title("Catégorie de compétence mise à jour avec succès")
+                        ->title(__('messages.title_updated'))
                         ->success()
                         ->send();
             return $this->redirect(route('competences', absolute: false), true);

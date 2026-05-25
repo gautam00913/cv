@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Translatable\HasTranslations;
 
 class Profile extends Model
 {
     /** @use HasFactory<\Database\Factories\ProfileFactory> */
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = ['biography', 'picture', 'cover_picture', 'user_id'];
+    public array $translatable = ['biography'];
+
 
     public function user(): BelongsTo
     {

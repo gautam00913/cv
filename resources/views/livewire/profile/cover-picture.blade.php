@@ -7,11 +7,11 @@
         </p>
     </div>
     <div class="md:w-1/2 lg:w-4/12 rounded-md bg-white px-3 py-10">
-        <h2 class="font-semibold mb-4 text-xl">Changez votre photo de couverture</h2>
+        <h2 class="font-semibold mb-4 text-xl">{{ __('messages.change') }}</h2>
         <form wire:submit="update">
             {{ $this->form }}
             <div class="mt-5">
-                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>
+                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">{{ __('messages.save') }}</x-button>
             </div>
         </form>
     </div>

@@ -2,13 +2,12 @@
 
 namespace App\Livewire\Profile;
 
-use Livewire\Component;
-use Livewire\Attributes\Rule;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Notifications\Notification;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Livewire\Component;
 
 class CoverPicture extends Component implements HasForms
 {
@@ -25,31 +24,32 @@ class CoverPicture extends Component implements HasForms
     {
         $this->validate();
         $update = auth()->user()->profile()->update($this->form->getState());
-        if($update){
+        if ($update) {
             Notification::make()
-            ->title('Photo mise à jour avec succès')
-            ->success()
-            ->send();
+                ->title(__('messages.cover_photo_updated'))
+                ->success()
+                ->send();
+
             return $this->redirect(route('dashboard'), navigate: true);
         }
     }
 
-   public function form(Form $form) : Form
-   {
+    public function form(Form $form): Form
+    {
         return $form->schema([
             FileUpload::make('cover_picture')
-                ->label("Photo de couverture")
+                ->label(__('messages.cover_photo'))
                 ->required()
                 ->image()
-                ->directory('images')
+                ->directory('images'),
         ])
-        ->statePath('data');
-   }
+            ->statePath('data');
+    }
 
     public function render()
     {
         return view('livewire.profile.cover-picture', [
-            'profile' => auth()->user()->profile
+            'profile' => auth()->user()->profile,
         ]);
     }
 }

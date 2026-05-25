@@ -18,8 +18,14 @@ class EducationFactory extends Factory
     public function definition(): array
     {
         return [
-            'grade' => $this->faker->catchPhrase(),
-            'description' => $this->faker->paragraph(3),
+            'grade' => [
+                'en' => $this->faker->catchPhrase(),
+                'fr' => $this->faker->catchPhrase()
+            ],
+            'description' => [
+                'en' => $this->faker->paragraph(rand(2, 5)),
+                'fr' => $this->faker->paragraph(rand(2, 5))
+            ],
             'year' => now()->subYears(rand(2, 5))->format('Y'),
             'profile_id' => Profile::factory(),
         ];

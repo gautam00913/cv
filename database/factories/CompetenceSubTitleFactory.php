@@ -17,7 +17,10 @@ class CompetenceSubTitleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(rand(2, 4), true)
+            'name' => [
+                'en' => $this->faker->sentence(rand(4, 10)),
+                'fr' => $this->faker->sentence(rand(4, 10))
+            ]
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Profile;
 
 use App\Models\User;
+use App\Traits\TranslationTrait;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -14,8 +15,8 @@ use Livewire\Component;
 
 class ShowProfile extends Component implements HasForms
 {
-    use InteractsWithForms;
-    
+    use InteractsWithForms, TranslationTrait;
+
     public User $user;
 
     #[Rule('required|min:10|max:255')]
@@ -27,7 +28,7 @@ class ShowProfile extends Component implements HasForms
     #[Rule('required|regex:/^+[0-9]+ $/{10,}')]
     public $phone;
 
-    #[Rule('required|min:10|max:400')]
+    #[Rule('required|min:10|max:100')]
     public $biography;
 
     #[Rule('sometimes|image')]
@@ -48,22 +49,28 @@ class ShowProfile extends Component implements HasForms
     public function submit()
     {
         $this->validate();
-        $state =$this->form->getState();
+        $state = $this->form->getState();
         $update = $this->user->update([
             'name' => $state['name'],
             'phone' => $state['phone'],
             'email' => $state['email'],
         ]);
         $tab = [];
-        if($state['picture'])
+        if ($state['picture']) {
             $tab['picture'] = $state['picture'];
+        }
 
+        $current = app()->getLocale();
+        $inverse = $current === 'en' ? 'fr' : 'en';
         $update = $this->user->profile()->update([
-            'biography' => $state['biography']
+            'biography' => [
+                $current => $state['biography'],
+                $inverse => $state['biography'] ? $this->translate($state['biography']) : null,
+            ],
         ] + $tab);
-        if($update){
+        if ($update) {
             Notification::make()
-                ->title('Modification éffectuée avec succès')
+                ->title(__('messages.modification_done_success'))
                 ->success()
                 ->send();
         }
@@ -72,11 +79,11 @@ class ShowProfile extends Component implements HasForms
     protected function getFormSchema(): array
     {
         return [
-            TextInput::make('name')->label('Nom & Prénom')->required(),
+            TextInput::make('name')->label(__('messages.name_lastname'))->required(),
             TextInput::make('email')->email()->required(),
-            TextInput::make('phone')->label('Téléphone')->tel()->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')->required(),
-            Textarea::make('biography')->label('Biographie')->rows(3),
-            FileUpload::make('picture')->label("Photo de profil")->image()->directory('images')
+            TextInput::make('phone')->label(__('messages.phone_number'))->tel()->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')->required(),
+            Textarea::make('biography')->label(__('messages.biography'))->rows(3)->nullable()->minLength(10)->maxLength(100),
+            FileUpload::make('picture')->label(__('messages.profile_picture'))->image()->directory('images'),
         ];
     }
 

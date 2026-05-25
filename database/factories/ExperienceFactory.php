@@ -20,7 +20,10 @@ class ExperienceFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->paragraphs(4, true),
+            'description' => [
+                'en' => $this->faker->paragraphs(rand(3, 5), true),
+                'fr' => $this->faker->paragraphs(rand(3, 5), true)
+            ],
             'current' => $current = $this->faker->boolean(20),
             'started_at' => now()->subMonths(
                 $this->faker->numberBetween(3, 12)

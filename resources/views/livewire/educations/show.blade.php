@@ -9,7 +9,7 @@
                 <div class="mb-3">
                     <?= nl2br($education->description) ?>
                 </div>
-                <p><b>Année :</b> {{ $education->year }}</p>
+                <p><b>{{ __('messages.year') }} :</b> {{ $education->year }}</p>
             </x-card>
         @endforeach
     </div>

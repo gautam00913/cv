@@ -1,7 +1,7 @@
 <div class="lg:space-x-4 flex flex-col lg:flex-row lg:items-start">
     <div class="bg-white lg:w-3/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
         <h1 class="font-semibold mb-4 text-xl flex justify-between items-center">
-            <span>Vos compétences</span>
+            <span>{{ __('messages.competences') }}</span>
             <a href="#formulaire" class="lg:hidden">+</a>
         </h1>
         <div>
@@ -10,7 +10,7 @@
                 <div x-data="{isOpen: false}" class="relative float-right -mt-4 md:-mt-7" @click.outside="isOpen = false">
                     <div>
                     <button @click="isOpen = !isOpen" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                        <span class="sr-only">Open dropdown</span>
+                        <span class="sr-only">{{ __('messages.open_dropdown') }}</span>
                         <svg class="w-5 h-5" x-bind:aria-hidden="isOpen" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
                             <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
                         </svg>
@@ -19,10 +19,10 @@
                     <div x-cloak x-show="isOpen" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         <ul class="text-left" aria-labelledby="dropdownButton">
                             <li>
-                                <a href="{{ route('competences.title', $group->competenceTitle->id) }}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"><i class="fa-solid fa-pen me-1"></i>Modifier</a>
+                                <a href="{{ route('competences.title', $group->competenceTitle->id) }}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"><i class="fa-solid fa-pen me-1"></i>{{ __('messages.edit') }}</a>
                             </li>
                             <li>
-                                <a x-data @click="$dispatch('confirm-delete', {action: 'delete-competence', data: {what: 'title', id: {{ $group->competenceTitle->id }}}})" class="cursor-pointer block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"><i class="fa-solid fa-trash me-1"></i>Supprimer</a>
+                                <a x-data @click="$dispatch('confirm-delete', {action: 'delete-competence', data: {what: 'title', id: {{ $group->competenceTitle->id }}}})" class="cursor-pointer block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"><i class="fa-solid fa-trash me-1"></i>{{ __('messages.delete') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -80,11 +80,11 @@
         </div>
     </div>
     <div class="bg-white lg:w-2/5 rounded-2xl p-5 md:px-10 my-5 mx-2 md:mx-0">
-        <h2 class="font-semibold mb-4 text-xl">Formulaire</h2>
+        <h2 class="font-semibold mb-4 text-xl">{{ __('messages.form') }}</h2>
         <form wire:submit="submit" id="formulaire">
             {{ $this->form }}
             <div class="mt-5">
-                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">Enregistrer</x-button>
+                <x-button type="submit" class="w-full md:w-1/2 mx-auto block">{{ __('messages.save') }}</x-button>
             </div>
         </form>
     </div>

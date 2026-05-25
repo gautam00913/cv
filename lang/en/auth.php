@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'email'   => 'Email address not found!',
     'failed'   => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
@@ -10,4 +11,5 @@ return [
     'login_success' => 'Dear :name your are welcome.',
     'logout' => 'Bye ! You have been logged out.',
     'account_changed' => 'Company account changed successfully !',
+    'reset_succed' => "A reset link has been sent to your email address",
 ];
