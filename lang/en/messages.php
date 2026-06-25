@@ -111,13 +111,13 @@ return [
     'positions' => 'Positions',
     'your_companies' => 'Your Companies',
     'your_positions' => 'Your Positions',
-    'subtitle_updated' => "Skill sub category updated successfully",
-    'title_updated' => "Skill category updated successfully",
+    'subtitle_updated' => 'Skill sub category updated successfully',
+    'title_updated' => 'Skill category updated successfully',
 
     // CV PDF
     'contact' => 'Contact',
     'skills_continued' => 'Skills (continued)',
-    'cv_phone' => "Phone",
+    'cv_phone' => 'Phone',
 
     // Misc UI
     'open_dropdown' => 'Open dropdown',
@@ -182,6 +182,7 @@ return [
     'name_lastname' => 'Name & Lastname',
     'name' => 'Name',
     'phone_number' => 'Phone number',
+    'adress' => 'Address',
     'biography' => 'Biography',
     'profile_picture' => 'Profile picture',
     'modification_done_success' => 'Modification completed successfully',

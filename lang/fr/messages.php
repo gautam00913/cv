@@ -111,13 +111,13 @@ return [
     'positions' => 'Postes',
     'your_companies' => 'Vos Entreprises',
     'your_positions' => 'Vos Postes',
-    'subtitle_updated' => "Sous-catégorie de compétence mise à jour avec succès",
-    'title_updated' => "Catégorie de compétence mise à jour avec succès",
+    'subtitle_updated' => 'Sous-catégorie de compétence mise à jour avec succès',
+    'title_updated' => 'Catégorie de compétence mise à jour avec succès',
 
     // CV PDF
     'contact' => 'Contact',
     'skills_continued' => 'Compétences (suite)',
-    'cv_phone' => "Tél",
+    'cv_phone' => 'Tél',
 
     // Misc UI
     'open_dropdown' => 'Open dropdown',
@@ -182,6 +182,7 @@ return [
     'name_lastname' => 'Nom & Prénom',
     'name' => 'Nom',
     'phone_number' => 'Téléphone',
+    'adress' => 'Adresse',
     'biography' => 'Biographie',
     'profile_picture' => 'Photo de profil',
     'modification_done_success' => 'Modification éffectuée avec succès',

@@ -261,6 +261,12 @@
                                     <a href="tel:<?= $profile->user->phone ?>" target="_blank" rel="noopener noreferrer" style="color: #333; text-decoration: none;"><?= $profile->user->phone ?></a>
                                 </div>
                             @endif
+                            @if($profile->user->adress)
+                                <div class="contact-row">
+                                    <span class="contact-label">{{__('messages.adress')}}:</span>
+                                    <span style="color: #333;"><?= $profile->user->adress ?></span>
+                                </div>
+                            @endif
                         </div>
                     </div>
     

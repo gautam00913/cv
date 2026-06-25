@@ -28,6 +28,9 @@ class ShowProfile extends Component implements HasForms
     #[Rule('required|regex:/^+[0-9]+ $/{10,}')]
     public $phone;
 
+    #[Rule('nullable|max:255')]
+    public $adress;
+
     #[Rule('required|min:10|max:100')]
     public $biography;
 
@@ -41,6 +44,7 @@ class ShowProfile extends Component implements HasForms
             'name' => $this->user->name,
             'email' => $this->user->email,
             'phone' => $this->user->phone,
+            'adress' => $this->user->adress,
             'biography' => $this->user->profile->biography,
             'picture' => $this->user->profile->picture,
         ]);
@@ -54,6 +58,7 @@ class ShowProfile extends Component implements HasForms
             'name' => $state['name'],
             'phone' => $state['phone'],
             'email' => $state['email'],
+            'adress' => $state['adress'],
         ]);
         $tab = [];
         if ($state['picture']) {
@@ -82,6 +87,7 @@ class ShowProfile extends Component implements HasForms
             TextInput::make('name')->label(__('messages.name_lastname'))->required(),
             TextInput::make('email')->email()->required(),
             TextInput::make('phone')->label(__('messages.phone_number'))->tel()->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')->required(),
+            TextInput::make('adress')->label(__('messages.adress'))->nullable(),
             Textarea::make('biography')->label(__('messages.biography'))->rows(3)->nullable()->minLength(10)->maxLength(100),
             FileUpload::make('picture')->label(__('messages.profile_picture'))->image()->directory('images'),
         ];
