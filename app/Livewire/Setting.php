@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -23,6 +24,8 @@ class Setting extends Component implements HasForms
     public string $current_password = '*********';
 
     public bool $change_password = false;
+    public bool $show_biography = true;
+    public bool $show_portfolio = false;
 
     public string $password;
 
@@ -30,8 +33,10 @@ class Setting extends Component implements HasForms
 
     public function mount()
     {
-        $this->user = auth()->user();
+        $this->user = auth()->user()->load('profile');
         $this->email = $this->user->email;
+        $this->show_biography = $this->user->profile->show_biography;
+        $this->show_portfolio = $this->user->profile->show_portfolio;
     }
 
     public function form(Form $form): Form
@@ -60,6 +65,13 @@ class Setting extends Component implements HasForms
                 ->required()
                 ->revealable()
                 ->hidden(fn ($get) => ! $get('change_password')),
+            Section::make(__('messages.setting_profile'))
+                ->schema([
+                    Checkbox::make('show_biography')
+                        ->label(__('messages.show_biography')),
+                    Checkbox::make('show_portfolio')
+                        ->label(__('messages.show_portfolio'))
+                ]),
         ]);
     }
 
@@ -70,6 +82,10 @@ class Setting extends Component implements HasForms
             $data['password'] = Hash::make($data['password']);
         }
         $done = $this->user->update($data);
+        $done = $this->user->profile()->update([
+            'show_biography' => $data['show_biography'],
+            'show_portfolio' => $data['show_portfolio'],
+        ]);
         if ($done) {
             Notification::make()
                 ->title(__('messages.information_updated'))

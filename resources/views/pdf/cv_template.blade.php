@@ -301,7 +301,7 @@
                 <!-- Right Column -->
                 <td class="main-content">
                     <!-- Profile -->
-                    @if($profile->biography)
+                    @if($profile->biography && $profile->show_biography)
                         <div class="section">
                             <h3 class="section-title">{{ __('messages.profile') }}</h3>
                             <p class="profile-text"><?= Str::words($profile->biography, 50) ?></p>
@@ -351,7 +351,7 @@
     </div>
 
     <!-- Page 2 -->
-    @if($portfolios_count > 0 || $competences_count > 50)
+    @if(($portfolios_count > 0 && $profile->show_portfolio) || $competences_count > 50)
         <div class="next-page">
             <table>
                 <tr>
@@ -388,7 +388,7 @@
                     <!-- Right Column -->
                     <td class="main-content">
                         <!-- Portfolio -->
-                        @if($portfolios_count > 0)
+                        @if($portfolios_count > 0 && $profile->show_portfolio)
                             <div class="section">
                                 <h3 class="section-title">{{ __('messages.portfolio') }}</h3>
                                 @foreach($profile->portfolios as $key => $portfolio)

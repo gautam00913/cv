@@ -151,6 +151,9 @@ return [
     'new_password' => 'Nouveau mot de passe',
     'confirm_password_label' => 'Confirmer le mot de passe',
     'information_updated' => 'Informations mise à jour avec succès',
+    'setting_profile' => 'Paramètres de visibilité dans le pdf de téléchargement du CV',
+    'show_biography' => 'Afficher la biographie',
+    'show_portfolio' => 'Afficher le portfolio',
 
     // Livewire Components - Educations
     'education_deleted' => 'Education suprimée avec succès',

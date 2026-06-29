@@ -13,7 +13,7 @@ class Profile extends Model
     /** @use HasFactory<\Database\Factories\ProfileFactory> */
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['biography', 'picture', 'cover_picture', 'user_id'];
+    protected $fillable = ['biography', 'picture', 'cover_picture', 'user_id', 'show_biography', 'show_portfolio'];
     public array $translatable = ['biography'];
 
 
