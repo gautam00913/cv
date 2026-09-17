@@ -154,6 +154,7 @@ return [
     'setting_profile' => 'Visibility settings in the downloadable CV pdf',
     'show_biography' => 'Show biography',
     'show_portfolio' => 'Show portfolio',
+    'status' => 'Show to the public ?',
 
     // Livewire Components - Educations
     'education_deleted' => 'Education deleted successfully',

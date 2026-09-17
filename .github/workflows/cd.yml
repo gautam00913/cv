@@ -1,0 +1,79 @@
+name: CD — Laravel Deploy (master)
+
+on:
+  push:
+    branches: [master]
+
+env:
+  PHP_VERSION: 8.2
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USERNAME }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          port: ${{ secrets.PROD_PORT }}
+          script: |
+            cd /home/gautdjoss/www/cv
+            git fetch --all
+            git checkout master
+            git pull origin master
+
+            composer install --no-interaction --no-progress --prefer-dist
+
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan cache:clear
+            php artisan migrate
+            php artisan storage:link
+
+      - name: Notify Slack (success)
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          payload: |
+            {
+              "text": "✅ Deployed master to production!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":white_check_mark: *master deployed to production*\nCommit: `${{ github.sha }}`\nDeployed by: `${{ github.actor }}`"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack (failure)
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          payload: |
+            {
+              "text": "❌ Production deployment failed!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":x: *Deployment of master FAILED*\nCommit: `${{ github.sha }}`\nTriggered by: `${{ github.actor }}`"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}

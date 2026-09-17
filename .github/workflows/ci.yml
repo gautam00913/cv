@@ -1,0 +1,61 @@
+name: CI — Laravel Build & Validation
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  PHP_VERSION: 8.2
+  NODE_VERSION: 20
+
+jobs:
+  build-and-validate:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, zip
+          coverage: none
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: composer-php-${{ hashFiles('composer.json') }}
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Build frontend assets
+        run: npm run build
+
+      - name: Run Pint (code style)
+        run: vendor/bin/pint --test
+
+      - name: Run PHPStan (static analysis)
+        run: vendor/bin/phpstan analyse --level=5 --memory-limit=2G
+
+      - name: Commit built assets
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          git add public/build/
+          git commit -m "chore: rebuild frontend assets [skip ci]" || echo "No changes to commit"
+          git push origin HEAD:master

@@ -8,6 +8,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -34,6 +35,9 @@ class Index extends Component implements HasForms
             Repeater::make('portfolios')
                 ->relationship('portfolios')
                 ->schema([
+                    Toggle::make('status')
+                        ->label(__('messages.status'))
+                        ->required(),
                     TextInput::make('title')
                         ->label(__('messages.title'))
                         ->required(),
@@ -82,6 +86,7 @@ class Index extends Component implements HasForms
                     return $data;
                 })
                 ->collapsible()
+                ->orderColumn()
                 ->addActionLabel(__('messages.add_another_item'))
                 ->label(''),
         ])

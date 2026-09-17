@@ -41,4 +41,9 @@ class Profile extends Model
     {
         return $this->hasMany(Portfolio::class);
     }
+    
+    public function activePortfolios(): HasMany
+    {
+        return $this->hasMany(Portfolio::class)->where('status', 1);
+    }
 }

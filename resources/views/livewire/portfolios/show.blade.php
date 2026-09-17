@@ -1,8 +1,8 @@
 <div>
-    @if ($showList && $showList->portfolios->count() > 0)
+    @if ($showList && $listCount > 0)
         <div class="relative w-full" x-data="{
             index: @entangle('index'),
-            get count() { return {{ $showList->portfolios->count() }}; },
+            get count() { return {{ $listCount }}; },
             interval: null,
             start(){
                 this.stop();
@@ -24,7 +24,7 @@
             <div class="relative h-[400px] md:h-[500px] overflow-hidden rounded-lg">
                 <div class="absolute inset-0 flex transition-transform duration-500 ease-in-out"
                      :style="'transform: translateX(-' + (index * 100) + '%)'">
-                    @foreach ($showList->portfolios as $key => $portfolio)
+                    @foreach ($showList->activePortfolios as $key => $portfolio)
                         <div class="w-full flex-shrink-0 h-full" wire:key="portfolio-{{ $portfolio->id }}">
                             <a @if($portfolio->link)href="{{ $portfolio->link }}" target="_blank" @endif class="h-full flex flex-col md:flex-row items-center bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <div class="w-full md:w-1/2 lg:w-1/3 h-56 md:h-full">
@@ -62,7 +62,7 @@
 
             <!-- Indicators -->
             <div class="absolute z-30 flex -translate-x-1/2 bottom-4 left-1/2 space-x-2">
-                @foreach ($showList->portfolios as $key => $portfolio)
+                @foreach ($showList->activePortfolios as $key => $portfolio)
                     <button type="button"
                             class="w-3 h-3 rounded-full transition-colors duration-200"
                             :class="index === {{ $key }} ? 'bg-primary' : 'bg-secondary'"

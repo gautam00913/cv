@@ -19,11 +19,85 @@
         [x-cloak] {
             display: none !important;
         }
+
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bubbles span {
+            position: absolute;
+            bottom: -80px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: bubble-up 10s infinite ease-in;
+            opacity: 0.6;
+        }
+
+        .bubbles span:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-duration: 8s; animation-delay: 0s; }
+        .bubbles span:nth-child(2) { left: 20%; width: 60px; height: 60px; animation-duration: 12s; animation-delay: 1s; background: rgba(0, 0, 0, 0.1); }
+        .bubbles span:nth-child(3) { left: 35%; width: 50px; height: 50px; animation-duration: 9s; animation-delay: 2s; }
+        .bubbles span:nth-child(4) { left: 50%; width: 80px; height: 80px; animation-duration: 14s; animation-delay: 0s; background: rgba(0, 0, 0, 0.08); }
+        .bubbles span:nth-child(5) { left: 65%; width: 35px; height: 35px; animation-duration: 7s; animation-delay: 3s; background: rgba(0, 0, 0, 0.12); }
+        .bubbles span:nth-child(6) { left: 75%; width: 70px; height: 70px; animation-duration: 11s; animation-delay: 2s; }
+        .bubbles span:nth-child(7) { left: 85%; width: 55px; height: 55px; animation-duration: 10s; animation-delay: 4s; background: rgba(0, 0, 0, 0.1); }
+        .bubbles span:nth-child(8) { left: 45%; width: 45px; height: 45px; animation-duration: 13s; animation-delay: 1s; }
+        .bubbles span:nth-child(9) { left: 5%; width: 65px; height: 65px; animation-duration: 9s; animation-delay: 3s; background: rgba(0, 0, 0, 0.08); }
+        .bubbles span:nth-child(10) { left: 92%; width: 30px; height: 30px; animation-duration: 8s; animation-delay: 2s; }
+
+        @keyframes bubble-up {
+            0% {
+                bottom: -80px;
+                opacity: 0.6;
+                transform: translateX(0) scale(1);
+            }
+            50% {
+                opacity: 0.4;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(80px) scale(1.2);
+            }
+        }
+
+        .progress-bar-animated {
+            background-color: #009688;
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 1rem 1rem;
+            animation: progress-stripes 1s linear infinite;
+        }
+
+        @keyframes progress-stripes {
+            from { background-position: 1rem 0; }
+            to { background-position: 0 0; }
+        }
     </style>
     @vite('resources/css/app.css')
 </head>
 
 <body class="antialiased bg-primary/70">
+    <div class="bubbles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
     <div
         class="text-xs absolute top-2 right-2 z-50 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-3 py-2 shadow-lg">
         <span class="text-gray-500">{{ __('messages.language') }}:</span>

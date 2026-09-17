@@ -154,6 +154,7 @@ return [
     'setting_profile' => 'Paramètres de visibilité dans le pdf de téléchargement du CV',
     'show_biography' => 'Afficher la biographie',
     'show_portfolio' => 'Afficher le portfolio',
+    'status' => 'Afficher au public ?',
 
     // Livewire Components - Educations
     'education_deleted' => 'Education suprimée avec succès',

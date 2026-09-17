@@ -41,11 +41,14 @@
 
     <div class="bg-white relative rounded-2xl p-3 md:px-10 mb-5 md:pb-5 mx-2 md:mx-8 lg:mx-10">
         <div>
-            <div class="flex items-center space-x-5 lg:space-x-10 border-b-2 pb-3 mb-4 overflow-x-scroll" style="scrollbar-width: none;">
+            <div class="flex items-center space-x-5 lg:space-x-10 pb-3 mb-1 overflow-x-scroll" style="scrollbar-width: none;">
                 <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'competence']) wire:click="showComponent('competence')" target="showComponent('competence')">{{ __('messages.competences') }}</x-button>
                 <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'experience']) wire:click="showComponent('experience')" target="showComponent('experience')">{{ __('messages.experience') }}</x-button>
                 <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'education']) wire:click="showComponent('education')" target="showComponent('education')">{{ __('messages.education') }}</x-button>
                 <x-button @class(["uppercase hover:translate-y-1", 'bg-primary text-white' => $active == 'portfolio']) wire:click="showComponent('portfolio')" target="showComponent('portfolio')">{{ __('messages.portfolio') }}</x-button>
+            </div>
+            <div class="h-1 rounded-full overflow-hidden bg-gray-200 mb-5">
+                <div class="h-full rounded-full progress-bar-animated"></div>
             </div>
             <div class="border-2 rounded-md p-3 md:p-5 border-secondaryLight">
                
