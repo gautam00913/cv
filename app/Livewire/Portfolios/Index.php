@@ -4,7 +4,9 @@ namespace App\Livewire\Portfolios;
 
 use App\Models\Profile;
 use App\Traits\TranslationTrait;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -35,9 +37,13 @@ class Index extends Component implements HasForms
             Repeater::make('portfolios')
                 ->relationship('portfolios')
                 ->schema([
-                    Toggle::make('status')
-                        ->label(__('messages.status'))
-                        ->required(),
+                    Grid::make()->schema([
+                        Toggle::make('status')
+                            ->label(__('messages.status'))
+                            ->required(),
+                        DatePicker::make('done_at')
+                                    ->label(__('messages.done_at'))
+                    ]),
                     TextInput::make('title')
                         ->label(__('messages.title'))
                         ->required(),

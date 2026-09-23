@@ -5,7 +5,7 @@
             <tbody>
                 @foreach ($experiences as $key => $experience)
                     @if ($key %2 == 0)
-                        <tr>
+                        <tr  wire:key="{{ 'exp-'. $key }}">
                             <td class="p-0 w-1/2">
                                 <div class="flex items-center p-0 m-0">
                                     <x-card class="w-10/12 h-full text-center border border-primary">
@@ -40,7 +40,7 @@
                             </td>
                         </tr>
                     @else
-                        <tr>
+                        <tr  wire:key="{{ 'exp-'. $key }}">
                             <td>
                                 <div></div>
                             </td>
@@ -79,7 +79,7 @@
     <!-- pour mobile -->
     <div class="space-y-8 md:hidden">
         @foreach($experiences as $key => $experience)
-            <x-card class="w-11/12 h-full text-center border border-primary mx-auto" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+            <x-card wire:key="{{ 'mob-'. $key }}" class="w-11/12 h-full text-center border border-primary mx-auto" data-aos="{{ $key == 0 ?: 'fade-right' }}" data-aos-offset="300" data-aos-easing="ease-in-sine">
                 <h2 class="text-md uppercase mb-1 font-semibold">
                     @if($experience->company->website)
                         <a href="<?= $experience->company->website ?>" target="_blank">

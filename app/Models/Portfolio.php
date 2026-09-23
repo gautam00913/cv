@@ -11,8 +11,12 @@ class Portfolio extends Model
 {
     /** @use HasFactory<\Database\Factories\PortfolioFactory> */
     use HasFactory, HasTranslations;
-    protected $fillable = ['title', 'description', 'picture', 'link', 'status', 'sort', 'profile_id'];
+    protected $fillable = ['title', 'description', 'picture', 'link', 'status', 'done_at', 'sort', 'profile_id'];
     public array $translatable = ['title', 'description'];
+
+    protected $casts = [
+        'done_at' => 'date'
+    ];
 
 
     public function profile(): BelongsTo

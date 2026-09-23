@@ -155,6 +155,7 @@ return [
     'show_biography' => 'Show biography',
     'show_portfolio' => 'Show portfolio',
     'status' => 'Show to the public ?',
+    'done_at' => 'Done at',
 
     // Livewire Components - Educations
     'education_deleted' => 'Education deleted successfully',

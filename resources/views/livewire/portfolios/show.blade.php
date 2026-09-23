@@ -34,6 +34,9 @@
                                     <div class="p-4 md:p-6 leading-normal">
                                         <h5 class="mb-2 text-xl md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $portfolio->title }}</h5>
                                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $portfolio->description }}</p>
+                                        @if($portfolio->done_at)
+                                            <p class="mt-5 mb-3 text-gray-700 dark:text-gray-400 text-right italic text-sm">{{ __("Projet réalisé en :date", ['date' => $portfolio->done_at->translatedFormat('F Y')]) }}</p>
+                                        @endif
                                     </div>
                                 </div>
                             </a>

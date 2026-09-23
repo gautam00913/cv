@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::table('portfolios', function (Blueprint $table) {
             $table->boolean('status')->default(true)->after('link');
-            $table->integer('sort')->nullable()->after('status');
+            $table->date('done_at')->nullable()->after('status');
+            $table->integer('sort')->nullable()->after('done_at');
         });
     }
 
@@ -23,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('portfolios', function (Blueprint $table) {
-            $table->dropColumn(['status', 'sort']);
+            $table->dropColumn(['status', 'done_at', 'sort']);
         });
     }
 };
