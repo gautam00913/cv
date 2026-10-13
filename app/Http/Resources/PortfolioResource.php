@@ -18,7 +18,7 @@ class PortfolioResource extends JsonResource
             'id' => $this->id,
             'title' => $this->getTranslations('title'),
             'description' => $this->getTranslations('description'),
-            'image' => $this->picture ? asset($this->picture) : asset('images/portfolio.jpg'),
+            'image' => $this->picture ? asset('storage/'. $this->picture) : asset('images/portfolio.jpg'),
             'githubUrl' => $this->github_link,
             'liveUrl' => $this->link,
             'featured' => $this->featured,
