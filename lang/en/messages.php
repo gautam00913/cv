@@ -156,6 +156,10 @@ return [
     'show_portfolio' => 'Show portfolio',
     'status' => 'Show to the public ?',
     'done_at' => 'Done at',
+    'featured' => 'Featured ?',
+    'github_link' => 'Link to GitHub repository',
+    'technologies' => 'Technologies used',
+    'technology_hint' => 'Separate technologies with commas (e.g., PHP, Laravel, MySQL)',
 
     // Livewire Components - Educations
     'education_deleted' => 'Education deleted successfully',

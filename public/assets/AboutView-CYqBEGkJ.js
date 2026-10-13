@@ -1,0 +1,1 @@
+import{c as e,i as t,l as n,o as r,s as i}from"./index-DICfFEbz.js";var a=e({__name:`AboutView`,setup(e){return(e,a)=>(n(),r(`div`,null,[i(t)]))}});export{a as default};

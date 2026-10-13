@@ -1,0 +1,1 @@
+import{c as e,l as t,o as n,s as r,t as i}from"./index-By_sjaJQ.js";var a=e({__name:`ContactView`,setup(e){return(e,a)=>(t(),n(`div`,null,[r(i)]))}});export{a as default};

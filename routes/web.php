@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CvController;
-use App\Http\Controllers\VisitController;
 use App\Http\Middleware\SetLocal;
 use App\Livewire\AllNotifications;
 use App\Livewire\Competences\Index;
@@ -21,7 +20,8 @@ use App\Livewire\Setting;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(SetLocal::class)->group(function () {
-    Route::get('/', HomePage::class)->name('home');
+    Route::view('/', 'frontend.index')->name('home');
+    //Route::get('/', HomePage::class)->name('home');
     Route::middleware('guest')->controller(AuthController::class)->group(function () {
         Route::get('/login', 'login')->name('login');
         Route::post('/login', 'authenticate')->name('authenticate');
@@ -48,7 +48,7 @@ Route::middleware(SetLocal::class)->group(function () {
         Route::get('/cv', [CvController::class, 'download'])->name('cv.download');
     });
 });
-Route::post('visits', VisitController::class)->name('visits.store');
+
 Route::get('locale/{lang}', function (string $lang) {
     if (in_array($lang, ['en', 'fr'])) {
         session(['locale' => $lang]);

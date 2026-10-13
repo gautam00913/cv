@@ -24,7 +24,6 @@ class VisitController extends Controller
             ]);
             $visit = Visit::create($request->only(['ip_address', 'country_code', 'uag', 'date']));
             if ($visit) {
-                $request->session()->put('ip_address', $visit->ip_address);
                 User::first()->notify(new VisitPageNotification($visit));
     
                 return response()->json(['status' => 'succeed']);

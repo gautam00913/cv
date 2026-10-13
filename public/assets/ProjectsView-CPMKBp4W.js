@@ -1,0 +1,1 @@
+import{c as e,l as t,n,o as r,s as i}from"./index-DICfFEbz.js";var a=e({__name:`ProjectsView`,setup(e){return(e,a)=>(t(),r(`div`,null,[i(n)]))}});export{a as default};

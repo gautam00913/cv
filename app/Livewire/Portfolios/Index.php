@@ -41,6 +41,9 @@ class Index extends Component implements HasForms
                         Toggle::make('status')
                             ->label(__('messages.status'))
                             ->required(),
+                        Toggle::make('featured')
+                            ->label(__('messages.featured'))
+                            ->required(),
                         DatePicker::make('done_at')
                                     ->label(__('messages.done_at'))
                     ]),
@@ -55,9 +58,17 @@ class Index extends Component implements HasForms
                         ->image()
                         ->required()
                         ->directory('images'),
-                    TextInput::make('link')
-                        ->label(__('messages.link'))
-                        ->url(),
+                    TextInput::make('technologies')
+                            ->label(__('messages.technologies'))
+                            ->hint(__('messages.technology_hint')),
+                    Grid::make()->schema([
+                        TextInput::make('link')
+                            ->label(__('messages.link'))
+                            ->url(),
+                        TextInput::make('github_link')
+                            ->label(__('messages.github_link'))
+                            ->url(),
+                        ]),
                 ])
                 ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
                     $current = app()->getLocale();
